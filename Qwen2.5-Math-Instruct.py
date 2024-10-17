@@ -7,11 +7,8 @@ from utils import PrintQandA
 with open('questions.json', 'r') as file:
     data = json.load(file)
 
-
-
 question_count = len(data)
 print(f"JSON 中问题的条数为：{question_count}")
-
 
 cache_dir = "/pubshare/LLM"
 cache_dir = "/home/jovyan/.cache/huggingface/hub"
@@ -23,12 +20,8 @@ model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-Math-7B-Instruct", ca
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-
-
 # 打印读取到的 JSON 数据
 for item in data:
     print("------------------------------------------------------------------------------------")
     print(f"问题：{item['question']}\n答案：{item['answer']}")
-    PrintQandA(item['question']+"\n\n",tokenizer,model)
-
-
+    PrintQandA(item['question'] + "\n\n", tokenizer, model, device)

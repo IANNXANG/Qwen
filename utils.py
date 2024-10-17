@@ -1,7 +1,7 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
 import pprint
 
-def PrintQandA(prompt,tokenizer,model):
+
+def PrintQandA(prompt, tokenizer, model, device):
     # 可以添加一些示例输入进行测试
 
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
@@ -11,7 +11,6 @@ def PrintQandA(prompt,tokenizer,model):
     # print(outputs[0])
     # print(outputs)
     answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
-
 
     parts = answer.split("\n\n")
     result_dict = {}
