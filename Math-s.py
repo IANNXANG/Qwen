@@ -22,6 +22,14 @@ output5 = """Step 1: Janet's ducks lay 16 eggs per day. ки\nки"""
 output6 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nки"
 output7 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nStep 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left. ки\nStep 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left. ки\nStep 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $18 every day at the farmers' market. The answer is: 18 ки"  # 18 is right
 
+# tensor([0.9955, 0.9958, 0.9983, 0.9957])
+# tensor([0.9955, 0.9958, 0.9983, 0.0240])  最后一个错了
+# tensor([0.3700, 0.6413, 0.8014, 0.0163])  把第一个改错
+# tensor([0.9955, 0.2233, 0.0090])   删除第二个
+# tensor([0.9955])
+# tensor([0.9955])
+# tensor([0.9955, 0.9958, 0.9983, 0.9957])
+
 oplist = []
 for i in range(1, 8):
     output_name = f'output{i}'
@@ -29,7 +37,7 @@ for i in range(1, 8):
     value = eval(output_name)
     oplist.append(value)
 
-print(oplist)
+
 
 for output in oplist:
     input_for_prm = f"{question} {output}"
