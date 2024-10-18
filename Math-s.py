@@ -6,10 +6,12 @@ good_token = '+'
 bad_token = '-'
 step_tag = 'ки'
 
-tokenizer = AutoTokenizer.from_pretrained('peiyi9979/math-shepherd-mistral-7b-prm')
+model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
+
+tokenizer = AutoTokenizer.from_pretrained(model_path)
 candidate_tokens = tokenizer.encode(f"{good_token} {bad_token}")[1:]  # [648, 387]
 step_tag_id = tokenizer.encode(f"{step_tag}")[-1]  # 12902
-model = AutoModelForCausalLM.from_pretrained('peiyi9979/math-shepherd-mistral-7b-prm').eval()
+model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 
 question = """Janet\u2019s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?"""
 output1 = """Step 1: Janet's ducks lay 16 eggs per day. ки\nStep 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left. ки\nStep 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left. ки\nStep 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $18 every day at the farmers' market. The answer is: 18 ки"""  # 18 is right
