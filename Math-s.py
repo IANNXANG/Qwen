@@ -22,8 +22,16 @@ output5 = """Step 1: Janet's ducks lay 16 eggs per day. ки\nки"""
 output6 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nки"
 output7 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nStep 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left. ки\nStep 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left. ки\nStep 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $18 every day at the farmers' market. The answer is: 18 ки"  # 18 is right
 
+oplist = []
+for i in range(1, 8):
+    output_name = f'output{i}'
+    # 假设这里有获取对应 output 变量值的方法，这里只是模拟用字符串来代替真实的值
+    value = eval(output_name)
+    oplist.append(value)
 
-for output in [output1, output2]:
+print(oplist)
+
+for output in oplist:
     input_for_prm = f"{question} {output}"
     input_id = torch.tensor([tokenizer.encode(input_for_prm)])
 
