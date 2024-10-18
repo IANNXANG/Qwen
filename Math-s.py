@@ -34,6 +34,12 @@ n = 4
 # tensor([0.3700, 0.6413, 0.8014, 0.0163])  把第一个改错
 # tensor([0.9955, 0.2233, 0.0090])   删除第二个
 
+# tensor([0.9955, 0.9958, 0.9983, 0.9957], device='cuda:0')
+# tensor([0.9955, 0.9958, 0.9983, 0.0240], device='cuda:0')
+# tensor([0.3700, 0.6413, 0.8014, 0.0163], device='cuda:0')
+# tensor([0.9955, 0.2233, 0.0090], device='cuda:0')
+
+
 
 
 
@@ -49,9 +55,13 @@ for output in oplist:
 
     with torch.no_grad():
         logits = model(input_id).logits[:, :, candidate_tokens].to(device)
+        print("---------------------------------------------")
+        print(logits)
         scores = logits.softmax(dim=-1)[:, :, 0].to(device)
+        print("---------------------------------------------")
+        print(scores)
         step_scores = scores[input_id == step_tag_id].to(device)
+        print("---------------------------------------------")
         print(step_scores)
 
-# tensor([0.9955, 0.9958, 0.9983, 0.9957])
-# tensor([0.9955, 0.9958, 0.9983, 0.0240])
+
