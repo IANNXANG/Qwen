@@ -12,7 +12,7 @@ print(f"JSON 中问题的条数为：{question_count}")
 
 model_path = "/pubshare/LLM/Qwen2.5-Math-7B-Instruct"
 #cache_dir = "/pubshare/LLM"
-cache_dir = "/home/jovyan/.cache/huggingface/hub"
+# cache_dir = "/home/jovyan/.cache/huggingface/hub"
 # 加载模型和分词器
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForCausalLM.from_pretrained(model_path)
