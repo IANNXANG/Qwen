@@ -10,7 +10,7 @@ with open('questions.json', 'r') as file:
 question_count = len(data)
 print(f"JSON 中问题的条数为：{question_count}")
 
-model_path = "/home/jovyan/.cache/huggingface/hub/Qwen2.5-Math-7B-Instruct/"
+model_path = "/pubshare/LLM/Qwen2.5-Math-7B-Instruct"
 #cache_dir = "/pubshare/LLM"
 cache_dir = "/home/jovyan/.cache/huggingface/hub"
 # 加载模型和分词器
