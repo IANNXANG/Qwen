@@ -52,6 +52,8 @@ for i in range(1, n+1):
 for output in oplist:
     input_for_prm = f"{question} {output}"
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
+    print("---------------------------------------------")
+    print(input_id)
 
     with torch.no_grad():
         logits = model(input_id).logits[:, :, candidate_tokens].to(device)
