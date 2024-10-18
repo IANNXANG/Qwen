@@ -56,10 +56,10 @@ for output in oplist:
     with torch.no_grad():
         logits = model(input_id).logits[:, :, candidate_tokens].to(device)
         print("---------------------------------------------")
-        print(logits)
+        print(logits)   #输出为+或者-的logits
         scores = logits.softmax(dim=-1)[:, :, 0].to(device)
         print("---------------------------------------------")
-        print(scores)
+        print(scores)   #输出为+的softmax
         step_scores = scores[input_id == step_tag_id].to(device)
         print("---------------------------------------------")
         print(step_scores)
