@@ -15,7 +15,7 @@ model_path = "/pubshare/LLM/Qwen2.5-Math-7B-Instruct"
 # cache_dir = "/home/jovyan/.cache/huggingface/hub"
 # 加载模型和分词器
 tokenizer = AutoTokenizer.from_pretrained(model_path)
-model = AutoModelForCausalLM.from_pretrained(model_path)
+model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 # tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-Math-7B-Instruct", cache_dir=cache_dir)
 # model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-Math-7B-Instruct", cache_dir=cache_dir)
 

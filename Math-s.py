@@ -14,6 +14,8 @@ step_tag_id = tokenizer.encode(f"{step_tag}")[-1]  # 12902
 print("---------------------------------------------")
 print(candidate_tokens)
 print(step_tag_id)
+# [648, 387]
+# 12902
 print("---------------------------------------------")
 
 model = AutoModelForCausalLM.from_pretrained(model_path).eval()
