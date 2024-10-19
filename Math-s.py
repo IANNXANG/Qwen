@@ -52,20 +52,25 @@ for i in range(1, n+1):
 for output in oplist:
     input_for_prm = f"{question} {output}"
     print("---------------------------------------------")
+    print("input_for_prm:")
     print(input_for_prm)
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
     print("---------------------------------------------")
+    print("input_id:")
     print(input_id)
 
     with torch.no_grad():
         logits = model(input_id).logits[:, :, candidate_tokens].to(device)
         print("---------------------------------------------")
-        print(logits)   #输出为+或者-的logits
+        #print("logits:")
+        #print(logits)   #输出为+或者-的logits
         scores = logits.softmax(dim=-1)[:, :, 0].to(device)
         print("---------------------------------------------")
+        print("scores:")
         print(scores)   #输出为+的softmax
         step_scores = scores[input_id == step_tag_id].to(device)
         print("---------------------------------------------")
+        print("step_scores:")
         print(step_scores)
 
 
