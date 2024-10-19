@@ -50,7 +50,7 @@ for i in range(1, n+1):
     oplist.append(value)
 
 for output in oplist:
-    input_for_prm = f"{question} {output}"
+    input_for_prm = f"{question}\n{output}"
     print("---------------------------------------------")
     print("input_for_prm:")
     print(input_for_prm)
