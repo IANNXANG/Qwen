@@ -13,8 +13,8 @@ tokenizer = AutoTokenizer.from_pretrained(model_path)
 candidate_tokens = tokenizer.encode(f"{good_token} {bad_token}")[1:]  # [648, 387]
 step_tag_id = tokenizer.encode(f"{step_tag}")[-1]  # 12902
 print("---------------------------------------------")
-print(candidate_tokens)
-print(step_tag_id)
+print("判断符:",candidate_tokens)
+print("分隔符:",step_tag_id)
 # [648, 387]
 # 12902
 print("---------------------------------------------")
@@ -51,6 +51,8 @@ for i in range(1, n+1):
 
 for output in oplist:
     input_for_prm = f"{question} {output}"
+    print("---------------------------------------------")
+    print(input_for_prm)
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
     print("---------------------------------------------")
     print(input_id)
