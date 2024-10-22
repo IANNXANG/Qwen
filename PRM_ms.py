@@ -32,7 +32,7 @@ n = 4
 # tensor([0.9955, 0.9958, 0.9983, 0.9957])
 # tensor([0.9955, 0.9958, 0.9983, 0.0240])  最后一个错了
 # tensor([0.3700, 0.6413, 0.8014, 0.0163])  把第一个改错
-# tensor([0.9955, 0.2233, 0.0090])   删除第二个
+# tensor([0.9955, 0.2233, 0.0090])   删除第二个step
 
 
 #在q和a之间添加\n
@@ -60,8 +60,8 @@ for output in oplist:
     with torch.no_grad():
         logits = model(input_id).logits[:, :, candidate_tokens].to(device)
         print("---------------------------------------------")
-        #print("logits:")
-        #print(logits)   #输出为+或者-的logits
+        print("logits:")
+        print(logits)   #输出为+或者-的logits
         scores = logits.softmax(dim=-1)[:, :, 0].to(device)
         print("---------------------------------------------")
         print("scores:")
