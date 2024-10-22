@@ -11,6 +11,7 @@ def PrintQandA(prompt, tokenizer, model, device):
     # print(outputs[0])
     # print(outputs)
     answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
+    print(answer)
 
     parts = answer.split("\n\n")
     result_dict = {}
