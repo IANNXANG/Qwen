@@ -21,7 +21,13 @@ print("---------------------------------------------")
 
 token_id = 1107
 decoded_text = tokenizer.decode([token_id])
+print("1107的token:")
 print(decoded_text)
+
+token2_id = 12902
+decoded_text2 = tokenizer.decode([token2_id])
+print("12902的token:")
+print(decoded_text2)
 
 print("---------------------------------------------")
 
