@@ -74,17 +74,20 @@ for i in range(1, n+1):
     value = eval(output_name)
     oplist.append(value)
 
+# Bug 修复：在使用 tokenized_result 之前，确保它已经被定义
 for output in oplist:
     input_for_prm = f"{question}\n{output}"
     print("---------------------------------------------")
     print("input_for_prm:")
     print(input_for_prm)
     # 获取分词结果但不进行编码
-    # Bug 修复：将 tokenized_result 转换为 Tensor 类型
-    tokenized_result = torch.tensor(tokenized_result).to(device)
+    tokenized_result = tokenizer.tokenize(input_for_prm)
     print("---------------------------------------------")
     print("Tokenized result:")
-    #print(tokenized_result)
+    print(tokenized_result)
+
+    # Bug 修复：将 tokenized_result 转换为 Tensor 类型
+    tokenized_result = torch.tensor(tokenized_result).to(device)
 
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
     print("---------------------------------------------")
