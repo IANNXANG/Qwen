@@ -51,6 +51,7 @@ n = 2
 #tensor([0.3201, 0.5929, 0.7085, 0.0187], device='cuda:0')
 #tensor([0.9929, 0.2399, 0.0108], device='cuda:0')
 
+
 for i in range(1, n+1):
     output_name = f'output{i}'
     # 假设这里有获取对应 output 变量值的方法，这里只是模拟用字符串来代替真实的值
