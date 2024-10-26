@@ -29,6 +29,9 @@ decoded_text2 = tokenizer.decode([token2_id])
 print("12902的token:")
 print(decoded_text2)
 
+print(decoded_text==decoded_text2)
+
+
 print("---------------------------------------------")
 
 
