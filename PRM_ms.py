@@ -19,6 +19,16 @@ print("分隔符:",step_tag_id)
 # 12902
 print("---------------------------------------------")
 
+token_id = 1107
+decoded_text = tokenizer.decode([token_id])
+print(decoded_text)
+
+print("---------------------------------------------")
+
+
+
+
+
 model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 model.to(device)
 
@@ -68,12 +78,12 @@ for output in oplist:
     tokenized_result = torch.tensor(tokenized_result).to(device)
     print("---------------------------------------------")
     print("Tokenized result:")
-    print(tokenized_result)
+    #print(tokenized_result)
 
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
     print("---------------------------------------------")
     print("input_id:")
-    print(input_id)
+    #print(input_id)
 
     with torch.no_grad():
         logits = model(input_id).logits[:, :, candidate_tokens].to(device)
