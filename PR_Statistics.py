@@ -5,12 +5,12 @@ import numpy as np
 
 
 
-
+work = "result_Random"
 # 初始化一个空列表来存储数据
 data_list = []
 
 # 读取jsonl文件
-with open('result_score.jsonl', 'r', encoding='utf-8') as file:
+with open(f'{work}_score.jsonl', 'r', encoding='utf-8') as file:
     for line in file:
         # 解析每一行的JSON数据
         data = json.loads(line)
