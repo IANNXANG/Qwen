@@ -66,8 +66,9 @@ for index, data in enumerate(data_list):
         print("step_scores:")
         print(step_scores)
         result_dict = {}
-        for index, score in enumerate(step_scores):
-            key = f"step{index+1}_score"
+        #step_scores = step_scores.tolist()
+        for index_step, score in enumerate(step_scores):
+            key = f"step{index_step+1}_score"
             result_dict[key] = score
             print(score)
         with open('/home/jovyan/notebook/zhouyang/result_score.jsonl', 'a') as file:
