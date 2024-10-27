@@ -32,6 +32,7 @@ good_token = '+'
 bad_token = '-'
 step_tag = 'ки'
 prm_tokenizer = AutoTokenizer.from_pretrained(prm_model_path)
+prm_model = AutoModelForCausalLM.from_pretrained(prm_model_path).eval()
 candidate_tokens = prm_tokenizer.encode(f"{good_token} {bad_token}")[1:]  # [648, 387]
 step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]  # 12902
 print("---------------------------------------------")
@@ -40,7 +41,6 @@ print("分隔符:",step_tag_id)
 # [648, 387]
 # 12902
 print("---------------------------------------------")
-prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 prm_model.to(device)
 
 
