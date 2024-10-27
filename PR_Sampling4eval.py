@@ -6,7 +6,7 @@ import json
 
 # 初始化一个空列表来存储数据
 data_list = []
-work = "solution"
+work = "pure"
 file_name = f"math/test_{work}.jsonl"
 # 读取jsonl文件
 with open(file_name, 'r', encoding='utf-8') as file:
