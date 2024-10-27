@@ -2,14 +2,11 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import pprint
-
-
-
+import random
 
 # 读取 JSONL 文件
 with open('train.jsonl', 'r') as file:
     data = [json.loads(line) for line in file]
-
 
 question_count = len(data)
 print(f"JSON 中问题的条数为：{question_count}")
@@ -24,7 +21,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 # 打印读取到的 JSON 数据
-for item in data:
+for item in random.sample(data, len(data)):
     print("------------------------------------------------------------------------------------")
     print(f"问题：{item['problem']}\n答案：{item['answer']}")
     inputs = tokenizer(item['problem'] + "\n\n", return_tensors="pt").to(device)
@@ -42,7 +39,7 @@ for item in data:
     for index, part in enumerate(parts):
         key = f"step{index}" if index > 0 else "question"
         result_dict[key] = part
-    with open('/home/jovyan/notebook/zhouyang/result.jsonl', 'a') as file:
+    with open('/home/jovyan/notebook/zhouyang/result_Random.jsonl', 'a') as file:
         json.dump(result_dict, file)
         file.write('\n')
     print("------------------------------------------------------------------------------------")

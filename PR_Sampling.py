@@ -5,9 +5,6 @@ import json
 
 
 
-
-
-
 # 初始化一个空列表来存储数据
 data_list = []
 
