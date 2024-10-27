@@ -41,7 +41,7 @@ model.to(device)
 
 for index, data in enumerate(data_list):
     print(f"Data {index + 1}:")
-    input_for_prm = data["quesion"]+"\n"+data["solution"]
+    input_for_prm = data["question"]+"\n"+data["solution"]
     print(input_for_prm)
 
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
