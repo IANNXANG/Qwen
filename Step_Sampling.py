@@ -70,14 +70,15 @@ for item in data:
             Input4PRM = Input4PRM + part + "ки"
         else:
             Input4PRM = Input4PRM + part
-            input_for_prm = Input4PRM
-            input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
-            with torch.no_grad():
-                logits = model(input_id).logits[:, :, candidate_tokens].to(device)
-                scores = logits.softmax(dim=-1)[:, :, 0].to(device)
-                step_scores = scores[input_id == step_tag_id].to(device)
-                print("---------------------------------------------")
-                print("step_scores:")
-                print(step_scores)
+    input_for_prm = Input4PRM
+    print("input_for_prm:",input_for_prm)
+    input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
+    with torch.no_grad():
+        logits = prm_model(input_id).logits[:, :, candidate_tokens].to(device)
+        scores = logits.softmax(dim=-1)[:, :, 0].to(device)
+        step_scores = scores[input_id == step_tag_id].to(device)
+        print("---------------------------------------------")
+        print("step_scores:")
+        print(step_scores)
     print("------------------------------------------------------------------------------------")
     pprint.pprint(result_dict)
