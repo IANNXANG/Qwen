@@ -27,21 +27,21 @@ model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-prm_model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
-good_token = '+'
-bad_token = '-'
-step_tag = 'ки'
-prm_tokenizer = AutoTokenizer.from_pretrained(prm_model_path)
-prm_model = AutoModelForCausalLM.from_pretrained(prm_model_path).eval()
-candidate_tokens = prm_tokenizer.encode(f"{good_token} {bad_token}")[1:]  # [648, 387]
-step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]  # 12902
-print("---------------------------------------------")
-print("判断符:",candidate_tokens)
-print("分隔符:",step_tag_id)
-# [648, 387]
-# 12902
-print("---------------------------------------------")
-prm_model.to(device)
+# prm_model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
+# good_token = '+'
+# bad_token = '-'
+# step_tag = 'ки'
+# prm_tokenizer = AutoTokenizer.from_pretrained(prm_model_path)
+# prm_model = AutoModelForCausalLM.from_pretrained(prm_model_path).eval()
+# candidate_tokens = prm_tokenizer.encode(f"{good_token} {bad_token}")[1:]  # [648, 387]
+# step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]  # 12902
+# print("---------------------------------------------")
+# print("判断符:",candidate_tokens)
+# print("分隔符:",step_tag_id)
+# # [648, 387]
+# # 12902
+# print("---------------------------------------------")
+# prm_model.to(device)
 
 
 
