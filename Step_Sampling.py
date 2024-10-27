@@ -33,7 +33,7 @@ for item in data:
 
     with torch.no_grad():
     # 生成回答
-        outputs = model.generate(**inputs, max_length=1000)
+        outputs = model.generate(**inputs, max_length=2048)
         # print(outputs[0])
         # print(outputs)
         answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
