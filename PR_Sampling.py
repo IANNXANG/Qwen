@@ -7,9 +7,10 @@ import json
 
 # 初始化一个空列表来存储数据
 data_list = []
-
+work = "result"
+file_name = f'{work}.jsonl'
 # 读取jsonl文件
-with open('result.jsonl', 'r', encoding='utf-8') as file:
+with open(file_name, 'r', encoding='utf-8') as file:
     for line in file:
         # 解析每一行的JSON数据
         data = json.loads(line)
@@ -68,7 +69,7 @@ for index, data in enumerate(data_list):
             key = f"step{index_step+1}_score"
             result_dict[key] = score
             print(score)
-        with open('/home/jovyan/notebook/zhouyang/result_score.jsonl', 'a') as file:
+        with open(f'/home/jovyan/notebook/zhouyang/{work}_score.jsonl', 'a') as file:
             json.dump(result_dict, file)
             file.write('\n')
 
