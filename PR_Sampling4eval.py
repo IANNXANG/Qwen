@@ -41,7 +41,7 @@ model.to(device)
 
 for index, data in enumerate(data_list):
     print(f"Data {index + 1}:")
-    input_for_prm = data
+    input_for_prm = data["quesion"]+"\n"+data["solution"]
     print(input_for_prm)
 
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
@@ -61,7 +61,7 @@ for index, data in enumerate(data_list):
             key = f"step{index_step+1}_score"
             result_dict[key] = score
             print(score)
-        with open(f'/home/jovyan/notebook/zhouyang/{work}_score.jsonl', 'a') as file:
+        with open(f'/home/jovyan/notebook/zhouyang/eval_score.jsonl', 'a') as file:
             json.dump(result_dict, file)
             file.write('\n')
 

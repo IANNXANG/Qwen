@@ -5,7 +5,7 @@ import numpy as np
 
 
 
-work = "result_Random"
+work = "result_Random_test"
 # 初始化一个空列表来存储数据
 data_list = []
 
