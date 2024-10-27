@@ -66,7 +66,7 @@ for index, data in enumerate(data_list):
         print("step_scores:")
         print(step_scores)
         result_dict = {}
-        #step_scores = step_scores.tolist()
+        step_scores = step_scores.tolist()
         for index_step, score in enumerate(step_scores):
             key = f"step{index_step+1}_score"
             result_dict[key] = score
