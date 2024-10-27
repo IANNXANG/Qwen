@@ -53,7 +53,7 @@ for index, data in enumerate(data_list):
         if i == 0:
             input_for_prm = input_for_prm + data[key]
         else:
-            input_for_prm = input_for_prm + data[key] + 'ки\n'
+            input_for_prm = input_for_prm + data[key] + 'ки'
     input_for_prm = input_for_prm.replace("<|im_end|>", "")
     print(input_for_prm)
 
