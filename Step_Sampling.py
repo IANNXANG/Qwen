@@ -53,11 +53,12 @@ for item in data:
     print(f"问题：{item['problem']}\n答案：{item['answer']}")
     inputs = tokenizer(item['problem'] + "\n\n", return_tensors="pt").to(device)
 
+    with torch.no_grad():
     # 生成回答
-    outputs = model.generate(**inputs, max_length=1000)
-    # print(outputs[0])
-    # print(outputs)
-    answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
+        outputs = model.generate(**inputs, max_length=1000)
+        # print(outputs[0])
+        # print(outputs)
+        answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
     print(answer)
 
     parts = answer.split("\n\n")
