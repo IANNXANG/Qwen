@@ -5,9 +5,11 @@ import pprint
 
 
 
-# 读取 JSON 文件
+
+# 读取 JSONL 文件
 with open('train.jsonl', 'r') as file:
-    data = json.load(file)
+    data = [json.loads(line) for line in file]
+
 
 question_count = len(data)
 print(f"JSON 中问题的条数为：{question_count}")
