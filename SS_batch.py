@@ -10,6 +10,7 @@ with open('train.jsonl', 'r') as file:
 # 设置批量大小
 batch_size = 16
 model_path = "/pubshare/zy/cache/Qwen2.5-Math-1.5B-Instruct"
+
 # 加载模型和分词器
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForCausalLM.from_pretrained(model_path).eval()
@@ -26,7 +27,8 @@ for i in range(0, len(data), batch_size):
 
     with torch.no_grad():
         # 生成回答
-        outputs = model.generate(**inputs, max_length=1000, batch_size=batch_size)
+        # bug修复：移除batch_size参数
+        outputs = model.generate(**inputs, max_length=1000)
         answers = tokenizer.batch_decode(outputs, skip_special_tokens=False)
 
     for j, answer in enumerate(answers):
