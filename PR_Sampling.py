@@ -65,6 +65,8 @@ for index, data in enumerate(data_list):
         print("---------------------------------------------")
         print("step_scores:")
         print(step_scores)
+        for score in step_scores:
+            print(score)
 
 
 

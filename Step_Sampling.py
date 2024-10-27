@@ -25,26 +25,6 @@ model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-# prm_model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
-# good_token = '+'
-# bad_token = '-'
-# step_tag = 'ки'
-# prm_tokenizer = AutoTokenizer.from_pretrained(prm_model_path)
-# prm_model = AutoModelForCausalLM.from_pretrained(prm_model_path).eval()
-# candidate_tokens = prm_tokenizer.encode(f"{good_token} {bad_token}")[1:]  # [648, 387]
-# step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]  # 12902
-# print("---------------------------------------------")
-# print("判断符:",candidate_tokens)
-# print("分隔符:",step_tag_id)
-# # [648, 387]
-# # 12902
-# print("---------------------------------------------")
-# prm_model.to(device)
-
-
-
-
-
 # 打印读取到的 JSON 数据
 for item in data:
     print("------------------------------------------------------------------------------------")
@@ -67,19 +47,5 @@ for item in data:
     with open('/home/jovyan/notebook/zhouyang/result.jsonl', 'a') as file:
         json.dump(result_dict, file)
         file.write('\n')
-    #     if index > 0:
-    #         Input4PRM = Input4PRM + part + "ки"
-    #     else:
-    #         Input4PRM = Input4PRM + part
-    # input_for_prm = Input4PRM
-    # print("input_for_prm:",input_for_prm)
-    # input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
-    # with torch.no_grad():
-    #     logits = prm_model(input_id).logits[:, :, candidate_tokens].to(device)
-    #     scores = logits.softmax(dim=-1)[:, :, 0].to(device)
-    #     step_scores = scores[input_id == step_tag_id].to(device)
-    #     print("---------------------------------------------")
-    #     print("step_scores:")
-    #     print(step_scores)
     print("------------------------------------------------------------------------------------")
     pprint.pprint(result_dict)
