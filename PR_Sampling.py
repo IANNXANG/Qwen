@@ -6,10 +6,6 @@ import json
 
 
 
-# 读取 JSONL 文件
-with open('result.jsonl', 'r') as file:
-    data = [json.loads(line) for line in file]
-
 
 
 # 初始化一个空列表来存储数据
@@ -22,7 +18,7 @@ with open('result.jsonl', 'r', encoding='utf-8') as file:
         data = json.loads(line)
         data_list.append(data)
 
-question_count = len(data)
+question_count = len(data_list)
 print(f"JSON 中问题的条数为：{question_count}")
 
 good_token = '+'
