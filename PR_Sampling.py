@@ -54,12 +54,12 @@ for index, data in enumerate(data_list):
             input_for_prm = input_for_prm + data[key]
         else:
             input_for_prm = input_for_prm + data[key] + 'ки\n'
+    input_for_prm = input_for_prm.replace("<|im_end|>", "")
     print(input_for_prm)
 
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
     print("---------------------------------------------")
-    print("input_id:")
-    #print(input_id)
+
 
     with torch.no_grad():
         logits = model(input_id).logits[:, :, candidate_tokens].to(device)
