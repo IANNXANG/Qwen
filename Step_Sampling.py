@@ -62,8 +62,22 @@ for item in data:
 
     parts = answer.split("\n\n")
     result_dict = {}
+    Input4PRM = ""
     for index, part in enumerate(parts):
         key = f"step{index}" if index > 0 else "question"
         result_dict[key] = part
+        if index > 0:
+            Input4PRM = Input4PRM + part + "ки"
+        else:
+            Input4PRM = Input4PRM + part
+            input_for_prm = Input4PRM
+            input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
+            with torch.no_grad():
+                logits = model(input_id).logits[:, :, candidate_tokens].to(device)
+                scores = logits.softmax(dim=-1)[:, :, 0].to(device)
+                step_scores = scores[input_id == step_tag_id].to(device)
+                print("---------------------------------------------")
+                print("step_scores:")
+                print(step_scores)
     print("------------------------------------------------------------------------------------")
     pprint.pprint(result_dict)
