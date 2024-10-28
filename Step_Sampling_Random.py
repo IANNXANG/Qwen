@@ -5,7 +5,7 @@ import pprint
 import random
 
 # 读取 JSONL 文件
-with open('test.jsonl', 'r') as file:
+with open('math/train.jsonl', 'r') as file:
     data = [json.loads(line) for line in file]
 
 question_count = len(data)

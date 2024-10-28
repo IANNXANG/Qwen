@@ -1,12 +1,18 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
+import argparse
 
+# 添加命令行参数解析
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--work', type=str, default="pure", help='The work directory')
+
+args = parser.parse_args()
+work = args.work
 
 
 # 初始化一个空列表来存储数据
 data_list = []
-work = "pure"
 file_name = f"math/test_{work}.jsonl"
 # 读取jsonl文件
 with open(file_name, 'r', encoding='utf-8') as file:

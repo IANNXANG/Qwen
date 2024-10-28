@@ -7,7 +7,7 @@ import pprint
 
 
 # 读取 JSONL 文件
-with open('train.jsonl', 'r') as file:
+with open('math/train.jsonl', 'r') as file:
     data = [json.loads(line) for line in file]
 
 

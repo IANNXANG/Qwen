@@ -8,13 +8,13 @@ parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--work', type=str, default="result", help='The work directory')
 
 args = parser.parse_args()
-
+work = args.work
 
 
 # 初始化一个空列表来存储数据
 data_list = []
-work = args.work
-file_name = f'{work}.jsonl'
+
+file_name = f'collect/{work}.jsonl'
 # 读取jsonl文件
 with open(file_name, 'r', encoding='utf-8') as file:
     for line in file:

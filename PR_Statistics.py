@@ -10,7 +10,7 @@ work = "result_Random_test"
 data_list = []
 
 # 读取jsonl文件
-with open(f'{work}_score.jsonl', 'r', encoding='utf-8') as file:
+with open(f'collect/{work}_score.jsonl', 'r', encoding='utf-8') as file:
     for line in file:
         # 解析每一行的JSON数据
         data = json.loads(line)

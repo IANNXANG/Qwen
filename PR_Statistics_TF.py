@@ -1,8 +1,14 @@
 import json
 import matplotlib.pyplot as plt
 import numpy as np
+import argparse
 
+# 添加命令行参数解析
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--work', type=str, default="pure", help='The work directory')
 
+args = parser.parse_args()
+work = args.work
 
 
 
@@ -10,14 +16,14 @@ import numpy as np
 data_list = []
 
 # 读取jsonl文件
-with open('eval_score.jsonl', 'r', encoding='utf-8') as file:
+with open(f'math/eval_{work}_score.jsonl', 'r', encoding='utf-8') as file:
     for line in file:
         # 解析每一行的JSON数据
         data = json.loads(line)
         data_list.append(data)
 
 # 读取jsonl文件
-with open('math/test_direct.jsonl', 'r', encoding='utf-8') as file:
+with open(f'math/test_{work}.jsonl', 'r', encoding='utf-8') as file:
     for i ,line in enumerate(file):
         # 解析每一行的JSON数据
         data = json.loads(line)
