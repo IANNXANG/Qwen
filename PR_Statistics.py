@@ -1,16 +1,23 @@
 import json
 import matplotlib.pyplot as plt
 import numpy as np
+import argparse
+
+# 添加命令行参数解析
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--work', type=str, default="train", help='The work directory')
+
+args = parser.parse_args()
+work = args.work
 
 
 
-
-work = "result_Random_test"
+work = "train"
 # 初始化一个空列表来存储数据
 data_list = []
 
 # 读取jsonl文件
-with open(f'collect/{work}_score.jsonl', 'r', encoding='utf-8') as file:
+with open(f'step_score/{work}_score.jsonl', 'r', encoding='utf-8') as file:
     for line in file:
         # 解析每一行的JSON数据
         data = json.loads(line)
