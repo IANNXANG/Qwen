@@ -47,7 +47,7 @@ model.to(device)
 
 for index, data in enumerate(data_list):
     print(f"Data {index + 1}:")
-    input_for_prm = data["question"]+"\n"+data["solution"]
+    input_for_prm = data["question"]+"\n"+data["code"][0]
     input_for_prm = input_for_prm.replace('\n\n', 'ки')
     input_for_prm = input_for_prm + 'ки'
     print(input_for_prm)
