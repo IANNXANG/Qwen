@@ -12,7 +12,7 @@ work = args.work
 
 
 
-work = "train"
+work = "test"
 # 初始化一个空列表来存储数据
 data_list = []
 

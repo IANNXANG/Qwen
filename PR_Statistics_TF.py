@@ -10,20 +10,20 @@ parser.add_argument('--work', type=str, default="train", help='The work director
 args = parser.parse_args()
 work = args.work
 
-work = "direct"
+work = "pure"
 
 
 # 初始化一个空列表来存储数据
 data_list = []
 
-# 读取jsonl文件
+# 读取jsonl文件score
 with open(f'step_score/eval_{work}_score.jsonl', 'r', encoding='utf-8') as file:
     for line in file:
         # 解析每一行的JSON数据
         data = json.loads(line)
         data_list.append(data)
 
-# 读取jsonl文件
+# 读取jsonl文件true false
 with open(f'math/test_{work}.jsonl', 'r', encoding='utf-8') as file:
     for i ,line in enumerate(file):
         # 解析每一行的JSON数据
@@ -58,7 +58,7 @@ np.random.seed(0)
 plt.hist(listTrue, bins=30, density=True, alpha=0.7, color='b')
 plt.xlabel('True alues')
 plt.ylabel('Probability Density')
-plt.title('Probability Distribution of listALL')
+plt.title('Probability Distribution of True')
 plt.grid(True)
 plt.show()
 
@@ -66,6 +66,6 @@ plt.show()
 plt.hist(listFalse, bins=30, density=True, alpha=0.7, color='b')
 plt.xlabel('False Values')
 plt.ylabel('Probability Density')
-plt.title('Probability Distribution of listALL')
+plt.title('Probability Distribution of False')
 plt.grid(True)
 plt.show()
