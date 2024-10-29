@@ -2,6 +2,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
+from PR_Statistics import plot_distribution
 
 # 添加命令行参数解析
 parser = argparse.ArgumentParser(description='Process some integers.')
@@ -51,21 +52,7 @@ for index, data in enumerate(data_list):
 print(listTrue)
 print(listFalse)
 # 假设listALL是一个包含数值数据的列表
-# 这里我们使用随机生成的数据作为示例
-np.random.seed(0)
 
-# 绘制概率分布图
-plt.hist(listTrue, bins=30, density=True, alpha=0.7, color='b')
-plt.xlabel('True alues')
-plt.ylabel('Probability Density')
-plt.title('Probability Distribution of True')
-plt.grid(True)
-plt.show()
 
-# 绘制概率分布图
-plt.hist(listFalse, bins=30, density=True, alpha=0.7, color='b')
-plt.xlabel('False Values')
-plt.ylabel('Probability Density')
-plt.title('Probability Distribution of False')
-plt.grid(True)
-plt.show()
+plot_distribution(listTrue, "True")
+plot_distribution(listFalse, "False")
