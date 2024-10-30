@@ -37,17 +37,12 @@ listFalse = []
 for index, data in enumerate(data_list):
     print(f"Data {index + 1}:")
     print(data)
-    for i, key in enumerate(list(data)[:-1]):
-        print(f"Key {i + 1}: {key}")
-        print(f"Value {i + 1}: {data[key]}")
-        if data["score"] == [True]:
-            listTrue.append(data[key])
-        elif data["score"] == [False]:
-            listFalse.append(data[key])
-        print()
+    num = len(data) - 1
+    if data["score"] == [True]:
+        listTrue.append(data[f"step{num}_score"])
+    elif data["score"] == [False]:
+        listFalse.append(data[f"step{num}_score"])
 
-
-        print()
 
 print(listTrue)
 print(listFalse)

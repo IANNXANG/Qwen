@@ -44,7 +44,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     work = args.work
 
-    work = "test"
+    work = "train"
     # 初始化一个空列表来存储数据
     data_list = []
 
