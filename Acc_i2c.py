@@ -1,7 +1,6 @@
 import json
 import argparse
 from collections import OrderedDict
-from tabulate import tabulate
 from prettytable import PrettyTable
 
 
