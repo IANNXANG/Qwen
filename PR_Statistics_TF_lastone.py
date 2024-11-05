@@ -11,7 +11,7 @@ parser.add_argument('--work', type=str, default="train", help='The work director
 args = parser.parse_args()
 work = args.work
 
-work = "solution"
+work = "pure"
 
 
 # 初始化一个空列表来存储数据
@@ -38,10 +38,24 @@ for index, data in enumerate(data_list):
     print(f"Data {index + 1}:")
     print(data)
     num = len(data) - 1
+    reward_list = []
+    for i in range(0, num):
+        reward_list.append(data[f"step{i + 1}_score"])
+
+    mode = "last"
+    if mode == "average":
+        average_reward = sum(reward_list) / len(reward_list)
+        reward = average_reward
+    elif mode == "last":
+        last_reward = data[f"step{num}_score"]
+        reward = last_reward
+    elif mode == "min":
+        min_reward = min(reward_list)
+        reward = min_reward
     if data["score"] == [True]:
-        listTrue.append(data[f"step{num}_score"])
+        listTrue.append(reward)
     elif data["score"] == [False]:
-        listFalse.append(data[f"step{num}_score"])
+        listFalse.append(reward)
 
 
 print(listTrue)

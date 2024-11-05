@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import argparse
 
+from numpy.ma.extras import average
+
 # 设置中文字体
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体
 plt.rcParams['axes.unicode_minus'] = False  # 显示负号
@@ -36,12 +38,12 @@ def plot_correct_rate(midpoints, correct_rates):
 if __name__ == "__main__":
     # 添加命令行参数解析
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--work', type=str, default="train", help='The work directory')
+    parser.add_argument('--work', type=str, default="pure", help='The work directory')
 
     args = parser.parse_args()
     work = args.work
 
-    work = "solution"
+    work = "pure"
 
     # 初始化一个空列表来存储数据
     data_list = []
@@ -67,9 +69,19 @@ if __name__ == "__main__":
         reward_list = []
         for i in range(0, num):
             reward_list.append(data[f"step{i+1}_score"])
-        average_reward = sum(reward_list) / len(reward_list)
-        min_reward = min(reward_list)
-        reward = min_reward
+
+
+
+        mode = "average"
+        if mode == "average":
+            average_reward = sum(reward_list) / len(reward_list)
+            reward = average_reward
+        elif mode == "last":
+            last_reward = data[f"step{num}_score"]
+            reward = last_reward
+        elif mode == "min":
+            min_reward = min(reward_list)
+            reward = min_reward
         if data["score"] == [True]:
             listTrue.append(reward)
         elif data["score"] == [False]:

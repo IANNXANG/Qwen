@@ -11,7 +11,7 @@ parser.add_argument('--work', type=str, default="train", help='The work director
 args = parser.parse_args()
 work = args.work
 
-work = "solution"
+work = "pure"
 
 
 # 初始化一个空列表来存储数据
