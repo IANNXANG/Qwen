@@ -51,8 +51,7 @@ for index, data in enumerate(data_list):
     input_for_prm = ""
     for step in data['label']['steps']:
         for completion in step['completions']:
-            input_for_prm += completion['text']
-        input_for_prm += "ки"
+            input_for_prm += completion['text'] + "ки\n"
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
 
