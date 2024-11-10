@@ -13,7 +13,7 @@ work = args.work
 
 # 初始化一个空列表来存储数据
 data_list = []
-file_name = f"../PRM800k/{work}.jsonl"
+file_name = f"../PRM800K/{work}.jsonl"
 # 读取jsonl文件
 with open(file_name, 'r', encoding='utf-8') as file:
     for line in file:
