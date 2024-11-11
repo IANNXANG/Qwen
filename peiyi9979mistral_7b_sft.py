@@ -20,9 +20,7 @@ model = AutoModelForCausalLM.from_pretrained("peiyi9979/mistral-7b-sft").eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-prompt = ("Chandra has four bowls.  Each one is a different color (red, blue, yellow, green).  She also has exactly"
-          " one glass the same color as each bowl.  If she chooses a bowl and a glass from the cupboard, how many pa"
-          "irings are possible?  One such pairing is a blue bowl and a yellow glass.")
+prompt = ("Chandra has four bowls.  Each one is a different color (red, blue, yellow, green).  She also has exactly one glass the same color as each bowl.  If she chooses a bowl and a glass from the cupboard, how many pairings are possible?  One such pairing is a blue bowl and a yellow glass. Step 1: Chandra has 4 choices for the bowl and 4 choices for")
 
 # 调用模型回答问题
 inputs = tokenizer.encode(prompt, return_tensors='pt').to(device)
