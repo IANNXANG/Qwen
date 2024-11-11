@@ -1,7 +1,7 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
-from utils import PrintQandA
+
 
 # 读取 JSON 文件
 with open('questions.json', 'r') as file:
@@ -24,4 +24,9 @@ model.to(device)
 for item in data:
     print("------------------------------------------------------------------------------------")
     print(f"问题：{item['question']}\n答案：{item['answer']}")
-    PrintQandA(item['question'] + "\n\n", tokenizer, model, device)
+
+    # 调用模型回答问题
+    inputs = tokenizer.encode(item['question'], return_tensors='pt').to(device)
+    outputs = model.generate(inputs, max_length=100, num_return_sequences=1)
+    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    print(f"模型生成的答案：{generated_text}")
