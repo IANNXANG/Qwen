@@ -27,6 +27,6 @@ for item in data:
 
     # 调用模型回答问题
     inputs = tokenizer.encode(item['question'], return_tensors='pt').to(device)
-    outputs = model.generate(inputs, max_length=100, num_return_sequences=1)
+    outputs = model.generate(inputs, max_length=1024, num_return_sequences=1)
     generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     print(f"模型生成的答案：{generated_text}")
