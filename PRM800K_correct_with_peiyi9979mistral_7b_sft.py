@@ -60,7 +60,7 @@ for index, ratings in enumerate(all_questions_ratings):
 good_token = '+'
 bad_token = '-'
 step_tag = 'ки'
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device1 = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
 
@@ -70,7 +70,7 @@ step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]
 step_tag_id = 1107
 
 prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
-prm_model.to(device)
+prm_model.to(device1)
 
 
 
@@ -84,7 +84,7 @@ for index, data in enumerate(data_list[:2]):
             input_for_prm += completion['text'] + "ки\n"
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
-    scores = calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device, candidate_tokens, step_tag_id)
+    scores = calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device1, candidate_tokens, step_tag_id)
     print("scores:", scores)
 
 
@@ -95,8 +95,8 @@ model = AutoModelForCausalLM.from_pretrained("peiyi9979/mistral-7b-sft").eval()
 
 
 # 设置模型运行环境
-device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
-model.to(device)
+device2 = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+model.to(device2)
 
 prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent.  In how many ways can they sit around a circular table if all the members of each party all sit next to each other?  (Two seatings are considered equivalent if one is a rotation of the other.)"
 
@@ -106,7 +106,7 @@ temperature = 0.7  # 设置温度，影响随机性
 top_k = 50  # 控制生成单词的范围，top_k 越小，生成的结果越保守
 
 # 编码输入
-inputs = tokenizer.encode(prompt, return_tensors='pt').to(device)
+inputs = tokenizer.encode(prompt, return_tensors='pt').to(device2)
 
 # 生成多条回答
 outputs = model.generate(
