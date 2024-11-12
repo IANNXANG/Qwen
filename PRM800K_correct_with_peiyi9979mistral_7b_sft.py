@@ -89,9 +89,7 @@ model = AutoModelForCausalLM.from_pretrained("peiyi9979/mistral-7b-sft").eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-prompt = ("Chandra has four bowls.  Each one is a different color (red, blue, yellow, green).  She also has exactly one glass the same color as each bowl.  If she chooses a bowl and a glass from the cupboard, how many pairings are possible?  One such pairing is a blue bowl and a yellow glass. Step 1: Chandra has 5 choices for the bowl and 2 choices for you")
-
-
+prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent.  In how many ways can they sit around a circular table if all the members of each party all sit next to each other?  (Two seatings are considered equivalent if one is a rotation of the other.)"
 # 生成n个答案
 n = 10
 # 调用模型回答问题
