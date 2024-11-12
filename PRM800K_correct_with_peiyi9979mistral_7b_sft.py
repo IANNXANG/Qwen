@@ -70,7 +70,7 @@ step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]
 step_tag_id = 1107
 
 prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
-prm_model.to(device)
+prm_model.to("cuda:0")
 
 
 
@@ -95,7 +95,7 @@ model = AutoModelForCausalLM.from_pretrained("peiyi9979/mistral-7b-sft").eval()
 
 
 # 设置模型运行环境
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent.  In how many ways can they sit around a circular table if all the members of each party all sit next to each other?  (Two seatings are considered equivalent if one is a rotation of the other.)"
