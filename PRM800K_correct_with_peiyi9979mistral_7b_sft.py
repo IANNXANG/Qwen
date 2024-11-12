@@ -69,8 +69,6 @@ for index, data in enumerate(data_list[:2]):
     scores = calculate_step_scores(input_for_prm)
     print("scores:", scores)
 
-input("继续执行")
-
 
 
 # 加载模型和分词器
@@ -87,7 +85,9 @@ prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent. 
 # 调用模型回答问题
 inputs = tokenizer.encode(prompt, return_tensors='pt').to(device)
 outputs = model.generate(inputs, max_length=1024)
-generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+generated_text = tokenizer.decode(outputs[0], skip_special_tokens=False)
+
+print(generated_text)
 
 
 
