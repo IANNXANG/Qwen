@@ -56,7 +56,7 @@ for index, ratings in enumerate(all_questions_ratings):
     print("第一个-1的位置:", find_first_minus_one_position(ratings))
 
 
-# 提取PRM800K的问题和答案作为给Mistral进行下一步生成的内容
+# 提取PRM800K的问题和答案作为给prm进行评分
 for index, data in enumerate(data_list[:2]):
     print(f"Data {index + 1}:")
     problem = data['question']['problem']
