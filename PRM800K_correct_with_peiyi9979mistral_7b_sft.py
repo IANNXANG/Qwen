@@ -8,19 +8,6 @@ from PRM_ms import calculate_step_scores
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--work', type=str, default="phase2_test", help='The work directory')
 
-args = parser.parse_args()
-work = args.work
-# PRM800K相关处理
-# 初始化一个空列表来存储数据
-data_list = []
-file_name = f"../PRM800K/{work}.jsonl"
-# 读取jsonl文件
-with open(file_name, 'r', encoding='utf-8') as file:
-    for line in file:
-        # 解析每一行的JSON数据
-        data = json.loads(line)
-        data_list.append(data)
-
 
 # 提取PRM800K的评分保存到一个list中，list中的元素是每一行的评分的一个list
 def extract_ratings_per_question(file_path):
@@ -50,6 +37,19 @@ def find_first_minus_one_position(lst):
             return index
     return None
 
+args = parser.parse_args()
+work = args.work
+# PRM800K相关处理
+# 初始化一个空列表来存储数据
+data_list = []
+file_name = f"../PRM800K/{work}.jsonl"
+# 读取jsonl文件
+with open(file_name, 'r', encoding='utf-8') as file:
+    for line in file:
+        # 解析每一行的JSON数据
+        data = json.loads(line)
+        data_list.append(data)
+
 all_questions_ratings = extract_ratings_per_question(file_name)
 for index, ratings in enumerate(all_questions_ratings):
     print(f"问题 {index + 1}: {ratings}")
@@ -67,6 +67,7 @@ model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
 prm_tokenizer = AutoTokenizer.from_pretrained(model_path)
 candidate_tokens = prm_tokenizer.encode(f"{good_token} {bad_token}")[1:]
 step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]
+step_tag_id = 1107
 
 prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 prm_model.to(device)
