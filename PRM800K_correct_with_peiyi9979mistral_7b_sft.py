@@ -37,6 +37,9 @@ def find_first_minus_one_position(lst):
             return index
     return None
 
+def get_scores(input_for_prm):
+    return calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device1, candidate_tokens, step_tag_id)
+
 args = parser.parse_args()
 work = args.work
 # PRM800K相关处理
@@ -84,7 +87,7 @@ for index, data in enumerate(data_list[:2]):
             input_for_prm += completion['text'] + "ки\n"
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
-    scores = calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device1, candidate_tokens, step_tag_id)
+    scores = get_scores(input_for_prm)
     print("scores:", scores)
 
 
