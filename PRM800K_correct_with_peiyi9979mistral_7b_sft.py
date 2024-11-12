@@ -114,7 +114,8 @@ model.to(device2)
 
 
 # 提取PRM800K的问题和答案作为给prm进行评分
-for index, (data,ratings) in enumerate(zip(data_list,all_questions_ratings)[:2]):
+# Bug修复：将zip对象转换为列表
+for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_ratings))[:2]):
     print(f"问题 {index + 1}: {ratings}")
     first_minus_one_position = find_first_minus_one_position(ratings)
     print("第一个-1的位置:", first_minus_one_position)
