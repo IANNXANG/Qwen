@@ -56,6 +56,23 @@ for index, ratings in enumerate(all_questions_ratings):
     print("第一个-1的位置:", find_first_minus_one_position(ratings))
 
 
+#PRM初始化
+good_token = '+'
+bad_token = '-'
+step_tag = 'ки'
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
+
+prm_tokenizer = AutoTokenizer.from_pretrained(model_path)
+candidate_tokens = prm_tokenizer.encode(f"{good_token} {bad_token}")[1:]
+step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]
+
+prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
+prm_model.to(device)
+
+
+
 # 提取PRM800K的问题和答案作为给prm进行评分
 for index, data in enumerate(data_list[:2]):
     print(f"Data {index + 1}:")
@@ -66,7 +83,7 @@ for index, data in enumerate(data_list[:2]):
             input_for_prm += completion['text'] + "ки\n"
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
-    scores = calculate_step_scores(input_for_prm)
+    scores = calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device)
     print("scores:", scores)
 
 
