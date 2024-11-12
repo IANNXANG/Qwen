@@ -96,26 +96,10 @@ model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
 prm_tokenizer = AutoTokenizer.from_pretrained(model_path)
 candidate_tokens = prm_tokenizer.encode(f"{good_token} {bad_token}")[1:]
 step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]
-#step_tag_id = 1107
+step_tag_id = 1107
 
 prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 prm_model.to(device1)
-
-
-
-# 提取PRM800K的问题和答案作为给prm进行评分
-for index, data in enumerate(data_list[:2]):
-    print(f"Data {index + 1}:")
-    problem = data['question']['problem']
-    input_for_prm = ""
-    for step in data['label']['steps']:
-        for completion in step['completions']:
-            input_for_prm += completion['text'] + "ки\n"
-    input_for_prm = problem + "\n" + input_for_prm
-    print(input_for_prm)
-    scores = get_scores(input_for_prm)
-    print("scores:", scores)
-
 
 
 # 加载模型和分词器
@@ -127,9 +111,38 @@ model = AutoModelForCausalLM.from_pretrained("peiyi9979/mistral-7b-sft").eval()
 device2 = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 model.to(device2)
 
-prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent.  In how many ways can they sit around a circular table if all the members of each party all sit next to each other?  (Two seatings are considered equivalent if one is a rotation of the other.)"
 
-GenAndScore(prompt)
+
+# 提取PRM800K的问题和答案作为给prm进行评分
+for index, (data,ratings) in enumerate(zip(data_list,all_questions_ratings)[:2]):
+    print(f"问题 {index + 1}: {ratings}")
+    first_minus_one_position = find_first_minus_one_position(ratings)
+    print("第一个-1的位置:", first_minus_one_position)
+    print(f"Data {index + 1}:")
+    problem = data['question']['problem']
+    input_for_prm = ""
+    count = 0
+    for step in data['label']['steps']:
+        for completion in step['completions']:
+            input_for_prm += completion['text'] + "ки\n"
+            count = count + 1
+            if count == first_minus_one_position:
+                break
+        if count == first_minus_one_position:
+            break
+    input_for_prm = problem + "\n" + input_for_prm
+    print(input_for_prm)
+    scores = get_scores(input_for_prm)
+    print("scores:", scores)
+
+
+
+
+
+# prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent.  In how many ways can they sit around a circular table if all the members of each party all sit next to each other?  (Two seatings are considered equivalent if one is a rotation of the other.)"
+#
+# #生成并评分
+# GenAndScore(prompt)
 
 
 
