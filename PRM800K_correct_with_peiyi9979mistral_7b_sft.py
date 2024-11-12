@@ -1,4 +1,5 @@
 import torch
+from sympy import sequence
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import argparse
@@ -58,13 +59,18 @@ def GenAndScore(prompt):
         temperature=temperature,
         top_k=top_k
     )
-
+    sequences = []
+    scores = []
     # 解码并输出每条结果
     for i, output in enumerate(outputs):
         generated_text = tokenizer.decode(output, skip_special_tokens=True)
         print(f"Generated text {i + 1}:\n{generated_text}\n")
-        scores = get_scores(generated_text)
-        print("scores:", scores)
+        sequences.append(generated_text)
+        score = get_scores(generated_text)
+        print("scores:", score)
+        scores.append(score)
+
+    return sequences, scores
 
 args = parser.parse_args()
 work = args.work
@@ -133,8 +139,21 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
             break
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
-    scores = get_scores(input_for_prm)
-    print("scores:", scores)
+    sequences, scores = GenAndScore(input_for_prm)
+    values = []
+    for score in scores:
+        value = score[first_minus_one_position]
+        values.append(value)
+    print("values:", values)
+    # 找到最大的分数
+    max_value = max(values)
+    # 找到最大分数的索引
+    max_index = values.index(max_value)
+    # 打印最大分数和对应的序列
+    print("最大分数:", max_value)
+    print("对应的序列:", sequences[max_index])
+
+
 
 
 
