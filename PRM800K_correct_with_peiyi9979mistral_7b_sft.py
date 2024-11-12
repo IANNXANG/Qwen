@@ -129,7 +129,6 @@ model.to(device2)
 
 prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent.  In how many ways can they sit around a circular table if all the members of each party all sit next to each other?  (Two seatings are considered equivalent if one is a rotation of the other.)"
 
-
 GenAndScore(prompt)
 
 
