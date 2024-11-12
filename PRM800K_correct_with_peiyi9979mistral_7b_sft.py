@@ -60,7 +60,7 @@ for index, ratings in enumerate(all_questions_ratings):
 good_token = '+'
 bad_token = '-'
 step_tag = 'ки'
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
 
@@ -70,7 +70,7 @@ step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]
 step_tag_id = 1107
 
 prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
-prm_model.to("cuda:0")
+prm_model.to(device)
 
 
 
