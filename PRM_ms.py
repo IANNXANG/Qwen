@@ -6,11 +6,13 @@ import torch
 
 def calculate_step_scores(input_for_prm, model, tokenizer, device, candidate_tokens,step_tag_id):
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
+    step_tag_id2 = 1107
 
     with torch.no_grad():
         logits = model(input_id).logits[:, :, candidate_tokens].to(device)
         scores = logits.softmax(dim=-1)[:, :, 0].to(device)
-        step_scores = scores[input_id == step_tag_id].to(device)
+        # Bug修复：修改为step_tag_id或者step_tag_id2
+        step_scores = scores[input_id == step_tag_id or input_id == step_tag_id2].to(device)
 
     return step_scores
 
