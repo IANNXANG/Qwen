@@ -125,7 +125,8 @@ outputs = model.generate(
 for i, output in enumerate(outputs):
     generated_text = tokenizer.decode(output, skip_special_tokens=True)
     print(f"Generated text {i + 1}:\n{generated_text}\n")
-
+    scores = get_scores(generated_text)
+    print("scores:", scores)
 
 
 
