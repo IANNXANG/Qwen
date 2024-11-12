@@ -91,6 +91,9 @@ model.to(device)
 
 prompt = ("Chandra has four bowls.  Each one is a different color (red, blue, yellow, green).  She also has exactly one glass the same color as each bowl.  If she chooses a bowl and a glass from the cupboard, how many pairings are possible?  One such pairing is a blue bowl and a yellow glass. Step 1: Chandra has 5 choices for the bowl and 2 choices for you")
 
+
+# 生成n个答案
+n = 10
 # 调用模型回答问题
 inputs = tokenizer.encode(prompt, return_tensors='pt').to(device)
 outputs = model.generate(inputs, max_length=1024, num_return_sequences=n)
