@@ -102,31 +102,33 @@ device2 = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 model.to(device2)
 
 prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent.  In how many ways can they sit around a circular table if all the members of each party all sit next to each other?  (Two seatings are considered equivalent if one is a rotation of the other.)"
+def GenAndScore(prompt):
+    # 设置生成的参数
+    num_samples = 20  # 希望生成的不同回答的数量
+    temperature = 0.7  # 设置温度，影响随机性
+    top_k = 50  # 控制生成单词的范围，top_k 越小，生成的结果越保守
 
-# 设置生成的参数
-num_samples = 20  # 希望生成的不同回答的数量
-temperature = 0.7  # 设置温度，影响随机性
-top_k = 50  # 控制生成单词的范围，top_k 越小，生成的结果越保守
+    # 编码输入
+    inputs = tokenizer.encode(prompt, return_tensors='pt').to(device2)
 
-# 编码输入
-inputs = tokenizer.encode(prompt, return_tensors='pt').to(device2)
+    # 生成多条回答
+    outputs = model.generate(
+        inputs,
+        max_length=1024,
+        num_return_sequences=num_samples,
+        do_sample=True,
+        temperature=temperature,
+        top_k=top_k
+    )
 
-# 生成多条回答
-outputs = model.generate(
-    inputs,
-    max_length=1024,
-    num_return_sequences=num_samples,
-    do_sample=True,
-    temperature=temperature,
-    top_k=top_k
-)
+    # 解码并输出每条结果
+    for i, output in enumerate(outputs):
+        generated_text = tokenizer.decode(output, skip_special_tokens=True)
+        print(f"Generated text {i + 1}:\n{generated_text}\n")
+        scores = get_scores(generated_text)
+        print("scores:", scores)
 
-# 解码并输出每条结果
-for i, output in enumerate(outputs):
-    generated_text = tokenizer.decode(output, skip_special_tokens=True)
-    print(f"Generated text {i + 1}:\n{generated_text}\n")
-    scores = get_scores(generated_text)
-    print("scores:", scores)
+GenAndScore(prompt)
 
 
 
