@@ -90,13 +90,11 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 prompt = "A Senate committee has 5 Democrats, 5 Republicans, and 1 Independent.  In how many ways can they sit around a circular table if all the members of each party all sit next to each other?  (Two seatings are considered equivalent if one is a rotation of the other.)"
-# 生成n个答案
-n = 10
+
 # 调用模型回答问题
 inputs = tokenizer.encode(prompt, return_tensors='pt').to(device)
-outputs = model.generate(inputs, max_length=1024, num_return_sequences=n)
-for i in range(n):
-    generated_text = tokenizer.decode(outputs[i], skip_special_tokens=True)
-    print(f"模型生成的第{i + 1}个答案：{generated_text}")
+outputs = model.generate(inputs, max_length=1024)
+generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
 
 
