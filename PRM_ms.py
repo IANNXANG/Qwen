@@ -16,8 +16,7 @@ step_tag_id = tokenizer.encode(f"{step_tag}")[-1]
 model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 model.to(device)
 
-def calculate_step_scores(question, output):
-    input_for_prm = f"{question}\n{output}"
+def calculate_step_scores(input_for_prm):
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
 
     with torch.no_grad():
@@ -36,5 +35,6 @@ Step 3: She bakes muffins for her friends every day with four eggs, so she has 1
 Step 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $18 every day at the farmers' market. 
 The answer is: 18 ки"""
 
-step_scores = calculate_step_scores(question, output)
+input_for_prm = f"{question}\n{output}"
+step_scores = calculate_step_scores(input_for_prm)
 print("Step Scores:", step_scores)

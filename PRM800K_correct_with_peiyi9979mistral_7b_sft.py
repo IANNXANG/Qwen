@@ -2,6 +2,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import argparse
+from PRM_ms import calculate_step_scores
 
 # 添加命令行参数解析
 parser = argparse.ArgumentParser(description='Process some integers.')
@@ -54,16 +55,6 @@ for index, ratings in enumerate(all_questions_ratings):
     print(f"问题 {index + 1}: {ratings}")
     print("第一个-1的位置:", find_first_minus_one_position(ratings))
 
-# 提取PRM800K的问题和答案
-for index, data in enumerate(data_list[:2]):
-    print(f"Data {index + 1}:")
-    problem = data['question']['problem']
-    input_for_prm = ""
-    for step in data['label']['steps']:
-        for completion in step['completions']:
-            input_for_prm += completion['text'] + "ки\n"
-    input_for_prm = problem + "\n" + input_for_prm
-    print(input_for_prm)
 
 # 提取PRM800K的问题和答案作为给Mistral进行下一步生成的内容
 for index, data in enumerate(data_list[:2]):
@@ -75,6 +66,8 @@ for index, data in enumerate(data_list[:2]):
             input_for_prm += completion['text'] + "ки\n"
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
+    scores = calculate_step_scores(input_for_prm)
+    print("scores:", scores)
 
 input("继续执行")
 
