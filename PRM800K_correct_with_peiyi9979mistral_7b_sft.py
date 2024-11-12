@@ -126,6 +126,8 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     first_minus_one_position = find_first_minus_one_position(ratings)
     print("第一个-1的位置:", first_minus_one_position)
     print(f"Data {index + 1}:")
+    if first_minus_one_position is None:
+        continue
     problem = data['question']['problem']
     input_for_prm = ""
     count = 0
@@ -152,6 +154,21 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     # 打印最大分数和对应的序列
     print("最大分数:", max_value)
     print("对应的序列:", sequences[max_index])
+    json_dict = {
+        "第一个-1的位置": None,
+        "input_for_prm": None,
+        "生成的回答": None,
+        "生成的回答的分数": None,
+        "生成的回答的分数s": None
+    }
+    json_dict["第一个-1的位置"] = first_minus_one_position
+    json_dict["input_for_prm"] = input_for_prm
+    json_dict["生成的回答"] = sequences[max_index]
+    json_dict["生成的回答的分数"] = max_value
+    json_dict["生成的回答的分数s"] = values
+    with open(f'/home/jovyan/notebook/zhouyang/{work}_DPO_DATA.jsonl', 'a') as file:
+        json.dump(json_dict, file)
+        file.write('\n')
 
 
 
