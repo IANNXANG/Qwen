@@ -83,7 +83,7 @@ for index, data in enumerate(data_list[:2]):
             input_for_prm += completion['text'] + "ки\n"
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
-    scores = calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device)
+    scores = calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device, candidate_tokens, step_tag_id)
     print("scores:", scores)
 
 

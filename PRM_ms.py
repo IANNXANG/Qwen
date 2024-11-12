@@ -4,7 +4,7 @@ import torch
 
 
 
-def calculate_step_scores(input_for_prm, model, tokenizer, device):
+def calculate_step_scores(input_for_prm, model, tokenizer, device, candidate_tokens,step_tag_id):
     input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(device)
 
     with torch.no_grad():
@@ -43,5 +43,5 @@ if __name__ == '__main__':
     The answer is: 18 ки"""
 
     input_for_prm = f"{question}\n{output}"
-    step_scores = calculate_step_scores(input_for_prm, model, tokenizer, device)
+    step_scores = calculate_step_scores(input_for_prm, model, tokenizer, device, candidate_tokens,step_tag_id)
     print("Step Scores:", step_scores)
