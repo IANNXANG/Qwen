@@ -120,7 +120,7 @@ outputs = model.generate(
 
 # 解码并输出每条结果
 for i, output in enumerate(outputs):
-    generated_text = tokenizer.decode(output, skip_special_tokens=False)
+    generated_text = tokenizer.decode(output, skip_special_tokens=True)
     print(f"Generated text {i + 1}:\n{generated_text}\n")
 
 
