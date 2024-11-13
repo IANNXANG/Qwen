@@ -146,7 +146,6 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     for score in scores:
         value = score[first_minus_one_position]
         values.append(value)
-    values = values.tolist()
 
     print("values:", values)
     # 找到最大的分数
