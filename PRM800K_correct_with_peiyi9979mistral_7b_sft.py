@@ -146,6 +146,8 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     for score in scores:
         value = score[first_minus_one_position]
         values.append(value)
+    values = values.tolist()
+
     print("values:", values)
     # 找到最大的分数
     max_value = max(values)
@@ -161,6 +163,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
         "生成的回答的分数": None,
         "生成的回答的分数s": None
     }
+
     json_dict["第一个-1的位置"] = first_minus_one_position
     json_dict["input_for_prm"] = input_for_prm
     json_dict["生成的回答"] = sequences[max_index]
