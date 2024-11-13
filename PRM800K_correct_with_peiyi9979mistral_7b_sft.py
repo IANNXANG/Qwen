@@ -144,12 +144,13 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     sequences, scores = GenAndScore(input_for_prm)
     values = []
     for score in scores:
-        value = score[first_minus_one_position]
+        value = float(score[first_minus_one_position])
         values.append(value)
 
     print("values:", values)
     # 找到最大的分数
     print("第一个-1的位置", first_minus_one_position)
+    print("PRM800K分数:", all_questions_ratings[index])
     max_value = max(values)
     # 找到最大分数的索引
     max_index = values.index(max_value)
