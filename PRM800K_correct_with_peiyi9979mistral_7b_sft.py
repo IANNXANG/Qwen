@@ -149,6 +149,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
 
     print("values:", values)
     # 找到最大的分数
+    print("第一个-1的位置", first_minus_one_position)
     max_value = max(values)
     # 找到最大分数的索引
     max_index = values.index(max_value)
