@@ -133,7 +133,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     count = 0
     for step in data['label']['steps']:
         for completion in step['completions']:
-            input_for_prm += completion['text'] + "ки\n"
+            input_for_prm += f"step {count+1}: "+completion['text'] + "ки\n"
             count = count + 1
             if count == first_minus_one_position:
                 break
