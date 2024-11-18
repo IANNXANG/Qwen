@@ -53,7 +53,7 @@ def GenAndScore(prompt):
     # 生成多条回答
     outputs = model.generate(
         inputs,
-        max_length=1024,
+        max_length=10240,
         num_return_sequences=num_samples,
         do_sample=True,
         temperature=temperature,
@@ -144,7 +144,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     sequences, scores = GenAndScore(input_for_prm)
     values = []
     for score in scores:
-        value = float(score[first_minus_one_position])
+        value = float(score[first_minus_one_position])  #取出生成位
         values.append(value)
 
     print("values:", values)
