@@ -58,7 +58,6 @@ def GenAndScore(prompt):
         do_sample=True,
         temperature=temperature,
         top_k=top_k,
-        truncation = True  # 设置截断参数为True，避免超出长度报错
     )
     sequences = []
     scores = []
