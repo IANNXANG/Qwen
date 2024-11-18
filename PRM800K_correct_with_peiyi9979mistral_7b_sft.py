@@ -158,6 +158,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     print("最大分数:", max_value)
     print("对应的序列:", sequences[max_index])
     json_dict = {
+        "index": index,
         "第一个-1的位置": None,
         "input_for_prm": None,
         "生成的回答": None,
