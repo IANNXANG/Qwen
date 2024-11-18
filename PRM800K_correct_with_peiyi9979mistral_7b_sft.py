@@ -121,7 +121,7 @@ model.to(device2)
 
 # 提取PRM800K的问题和答案作为给prm进行评分
 # Bug修复：将zip对象转换为列表
-for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_ratings))[:2]):
+for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_ratings))):
     print(f"问题 {index + 1}: {ratings}")
     first_minus_one_position = find_first_minus_one_position(ratings)
     print("第一个-1的位置:", first_minus_one_position)
@@ -170,8 +170,9 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     json_dict["生成的回答"] = sequences[max_index]
     json_dict["生成的回答的分数"] = max_value
     json_dict["生成的回答的分数s"] = values
-    with open(f'/home/jovyan/notebook/zhouyang/{work}_DPO_DATA.jsonl', 'a') as file:
-        json.dump(json_dict, file)
+    with open(f'/home/jovyan/notebook/zhouyang/{work}_DPO_DATA.jsonl', 'a', encoding='utf-8') as f:
+        json.dump(json_dict, f, ensure_ascii=False)
+
         file.write('\n')
 
 
