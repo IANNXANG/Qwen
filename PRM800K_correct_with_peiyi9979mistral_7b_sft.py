@@ -172,8 +172,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     json_dict["生成的回答的分数s"] = values
     with open(f'/home/jovyan/notebook/zhouyang/{work}_DPO_DATA.jsonl', 'a', encoding='utf-8') as f:
         json.dump(json_dict, f, ensure_ascii=False)
-
-        file.write('\n')
+        f.write('\n')
 
 
 
