@@ -53,7 +53,7 @@ def GenAndScore(prompt):
     # 生成多条回答
     outputs = model.generate(
         inputs,
-        max_length=1024,
+        max_new_tokens=1024,
         num_return_sequences=num_samples,
         do_sample=True,
         temperature=temperature,
