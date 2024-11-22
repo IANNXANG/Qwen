@@ -147,6 +147,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
         if first_minus_one_position is not None and 0 <= first_minus_one_position < len(score):
             value = float(score[first_minus_one_position])
         else:
+
             value = -1
         values.append(value)
 
