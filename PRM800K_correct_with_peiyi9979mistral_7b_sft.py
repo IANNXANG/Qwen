@@ -144,7 +144,11 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     sequences, scores = GenAndScore(input_for_prm)
     values = []
     for score in scores:
-        value = float(score[first_minus_one_position])
+        if first_minus_one_position is not None and 0 <= first_minus_one_position < len(score):
+            value = float(score[first_minus_one_position])
+        else:
+            # 可以根据具体需求处理越界情况，这里暂时将 value 设为 -1
+            value = -1
         values.append(value)
 
     print("values:", values)
