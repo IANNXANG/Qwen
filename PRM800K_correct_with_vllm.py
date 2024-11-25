@@ -50,7 +50,7 @@ def GenAndScore(prompt):
     top_k = 50  # 控制生成单词的范围，top_k 越小，生成的结果越保守
     # 设置vllm的采样参数
     sampling_params = SamplingParams(
-        num_return_sequences=num_samples,
+        n=num_samples,
         temperature=temperature,
         top_k=top_k,
         max_tokens = 1024
