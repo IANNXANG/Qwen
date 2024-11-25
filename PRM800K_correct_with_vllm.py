@@ -4,6 +4,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import argparse
 from PRM_ms import calculate_step_scores
+from vllm import LLM, SamplingParams
 
 
 # 添加命令行参数解析
@@ -47,19 +48,15 @@ def GenAndScore(prompt):
     num_samples = 20  # 希望生成的不同回答的数量
     temperature = 0.7  # 设置温度，影响随机性
     top_k = 50  # 控制生成单词的范围，top_k 越小，生成的结果越保守
-
-    # 编码输入
-    inputs = tokenizer.encode(prompt, return_tensors='pt').to(device2)
-
-    # 生成多条回答
-    outputs = model.generate(
-        inputs,
-        max_new_tokens=1024,
-        num_return_sequences=num_samples,
-        do_sample=True,
+    # 设置vllm的采样参数
+    sampling_params = SamplingParams(
+        n=num_samples,
         temperature=temperature,
         top_k=top_k
     )
+
+
+    outputs = llm.generate(prompt, sampling_params)
     sequences = []
     scores = []
     # 解码并输出每条结果
@@ -108,15 +105,13 @@ step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]
 prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 prm_model.to(device1)
 
-
-# 加载模型和分词器
-tokenizer = AutoTokenizer.from_pretrained("peiyi9979/mistral-7b-sft")
-model = AutoModelForCausalLM.from_pretrained("peiyi9979/mistral-7b-sft").eval()
+# 使用vllm的LLM进行生成
+llm = LLM(model=model_path)
 
 
 # 设置模型运行环境
 device2 = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
-model.to(device2)
+
 
 
 
