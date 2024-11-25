@@ -94,7 +94,7 @@ for index, ratings in enumerate(all_questions_ratings):
 good_token = '+'
 bad_token = '-'
 step_tag = 'ки'
-device1 = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device1 = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
 model_path = "/pubshare/LLM/math-shepherd-mistral-7b-prm"
 
