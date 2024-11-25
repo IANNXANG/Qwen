@@ -1,4 +1,5 @@
 import torch
+from humanfriendly.terminal import output
 from sympy import sequence
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
@@ -60,7 +61,7 @@ def GenAndScore(prompt):
     sequences = []
     scores = []
     # 解码并输出每条结果
-    for i, output in enumerate(outputs):
+    for i, output in enumerate(outputs.outputs):
         generated_text = output.text
         print(f"Generated text {i + 1}:\n{generated_text}\n")
         sequences.append(generated_text)
