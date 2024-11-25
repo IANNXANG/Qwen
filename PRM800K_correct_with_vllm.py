@@ -107,7 +107,7 @@ prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
 prm_model.to(device1)
 
 # 使用vllm的LLM进行生成
-llm = LLM(model=model_path)
+llm = LLM(model="/pubshare/LLM/math-shepherd-mistral-7b-sft")
 
 
 # 设置模型运行环境
