@@ -52,7 +52,8 @@ def GenAndScore(prompt):
     sampling_params = SamplingParams(
         n=num_samples,
         temperature=temperature,
-        top_k=top_k
+        top_k=top_k,
+        max_tokens = 1024
     )
 
 
@@ -61,7 +62,7 @@ def GenAndScore(prompt):
     scores = []
     # 解码并输出每条结果
     for i, output in enumerate(outputs):
-        generated_text = tokenizer.decode(output, skip_special_tokens=True)
+        generated_text = output.outputs[0].text
         print(f"Generated text {i + 1}:\n{generated_text}\n")
         sequences.append(generated_text)
         score = get_scores(generated_text)
