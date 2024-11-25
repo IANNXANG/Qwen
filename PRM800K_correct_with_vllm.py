@@ -59,7 +59,7 @@ def GenAndScore(prompt):
     sequences = []
     scores = []
     # 解码并输出每条结果
-    for index, output in enumerate(outputs):
+    for i2, output in enumerate(outputs):
         for i in range(num_samples):
             generated_text = output.outputs[i].text
             print(f"Generated text {i + 1}:\n{generated_text}\n")
