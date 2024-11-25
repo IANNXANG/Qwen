@@ -61,7 +61,7 @@ def GenAndScore(prompt):
     scores = []
     # 解码并输出每条结果
     for i, output in enumerate(outputs):
-        generated_text = output.outputs[0].text
+        generated_text = output.text
         print(f"Generated text {i + 1}:\n{generated_text}\n")
         sequences.append(generated_text)
         score = get_scores(prompt+generated_text)
