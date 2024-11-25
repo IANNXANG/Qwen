@@ -1,6 +1,4 @@
 import torch
-from humanfriendly.terminal import output
-from sympy import sequence
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import argparse
