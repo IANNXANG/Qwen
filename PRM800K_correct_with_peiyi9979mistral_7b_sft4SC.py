@@ -142,7 +142,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
             break
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
-    print("插入：Wait, did I make a mistake somewhere? Let me check again?")
+    print("插入："+f"step {first_minus_one_position + 1}: " + "Wait, did I make a mistake somewhere? Let me check again?" + "ки\n")
     input_for_prm += f"step {first_minus_one_position + 1}: " + "Wait, did I make a mistake somewhere? Let me check again?" + "ки\n"
     sequences, scores = GenAndScore(input_for_prm)
     values = []
@@ -178,7 +178,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     json_dict["生成的回答"] = sequences[max_index]
     json_dict["生成的回答的分数"] = max_value
     json_dict["生成的回答的分数s"] = values
-    json_dict["生成的回答的分数（整个序列）"] = scores[max_index].tolist
+    json_dict["生成的回答的分数（整个序列）"] = scores[max_index].tolist()
     with open(f'/home/jovyan/notebook/zhouyang/{work}_DPO_DATA.jsonl', 'a', encoding='utf-8') as f:
         json.dump(json_dict, f, ensure_ascii=False)
         f.write('\n')
