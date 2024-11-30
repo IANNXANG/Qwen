@@ -44,7 +44,7 @@ def get_scores(input_for_prm):
 
 def GenAndScore(prompt):
     # 设置生成的参数
-    num_samples = 20  # 希望生成的不同回答的数量
+    num_samples = 1  # 希望生成的不同回答的数量
     temperature = 0.7  # 设置温度，影响随机性
     top_k = 50  # 控制生成单词的范围，top_k 越小，生成的结果越保守
 
