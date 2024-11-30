@@ -44,7 +44,7 @@ def get_scores(input_for_prm):
 
 def GenAndScore(prompt):
     # 设置生成的参数
-    num_samples = 1  # 希望生成的不同回答的数量
+    num_samples = 20  # 希望生成的不同回答的数量
     temperature = 0.7  # 设置温度，影响随机性
     top_k = 50  # 控制生成单词的范围，top_k 越小，生成的结果越保守
 
@@ -142,8 +142,8 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
             break
     input_for_prm = problem + "\n" + input_for_prm
     print(input_for_prm)
-    print("插入句子：Wait, did I make a mistake somewhere? Let me check again?")
-    input_for_prm = input_for_prm + f"step {first_minus_one_position+1}: "+"Wait, did I make a mistake somewhere? Let me check again?" + "ки\n"
+    print("插入：Wait, did I make a mistake somewhere? Let me check again?")
+    input_for_prm += f"step {first_minus_one_position + 1}: " + "Wait, did I make a mistake somewhere? Let me check again?" + "ки\n"
     sequences, scores = GenAndScore(input_for_prm)
     values = []
     for score in scores:
