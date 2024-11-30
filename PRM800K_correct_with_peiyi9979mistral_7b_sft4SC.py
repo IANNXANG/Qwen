@@ -169,7 +169,8 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
         "input_for_prm": None,
         "生成的回答": None,
         "生成的回答的分数": None,
-        "生成的回答的分数s": None
+        "生成的回答的分数s": None,
+        "生成的会发的分数（整个序列）": None
     }
 
     json_dict["第一个-1的位置"] = first_minus_one_position
@@ -177,6 +178,7 @@ for index, (data, ratings) in enumerate(list(zip(data_list, all_questions_rating
     json_dict["生成的回答"] = sequences[max_index]
     json_dict["生成的回答的分数"] = max_value
     json_dict["生成的回答的分数s"] = values
+    json_dict["生成的会发的分数（整个序列）"] = scores[max_index].tolist
     with open(f'/home/jovyan/notebook/zhouyang/{work}_DPO_DATA.jsonl', 'a', encoding='utf-8') as f:
         json.dump(json_dict, f, ensure_ascii=False)
         f.write('\n')
