@@ -42,7 +42,7 @@ def GenAndScore(prompt):
 
     return sequences, scores
 
-def input_for_prm(result_dict):
+def get_input_for_prm(result_dict):
     input_for_prm = ""
     for i, key in enumerate(result_dict):
         print(f"{key}: {result_dict[key]}")
@@ -54,7 +54,7 @@ def input_for_prm(result_dict):
     #input_for_prm = input_for_prm.replace("<|im_end|>", "")
     return input_for_prm
 
-def result_dict(answer):
+def get_result_dict(answer):
     parts = answer.split("\n\n")
     result_dict = {}
     for index, part in enumerate(parts):
@@ -111,20 +111,25 @@ for item in data:
 
 
     #答案保存为字典
-    result_dict = result_dict(answer)
+    result_dict = get_result_dict(answer)
 
     #创建input_for_prm第一次
-    input_for_prm = input_for_prm(result_dict)
+    input_for_prm = get_input_for_prm(result_dict)
 
 
     #使用input_for_prm生成分数
     scores1 = get_scores(input_for_prm).tolist()
-    print(scores1)
+    print("scores1", scores1)
 
     #创建反思的input
     input_for_sc = answer + "\n\n" + "Wait, did I make a mistake somewhere? Let me check again?" + "\n\n"
     outputs_for_sc = model.generate(**inputs, max_length=max_length)
     answer_for_sc = tokenizer.decode(outputs_for_sc[0], skip_special_tokens=True)
+
+    result_dict2 = get_result_dict(answer_for_sc)
+    input_for_prm2 = get_input_for_prm(result_dict2)
+    scores2 = get_scores(input_for_prm2).tolist()
+    print("scores2", scores2)
 
 
 
