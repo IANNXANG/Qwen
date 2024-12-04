@@ -1,5 +1,4 @@
 import torch
-from sympy import sequence
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import argparse
@@ -39,6 +38,7 @@ def find_first_minus_one_position(lst):
             return index
     return None
 
+#prm返回分数 保存为一个list
 def get_scores(input_for_prm):
     return calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device1, candidate_tokens, step_tag_id)
 
