@@ -119,17 +119,19 @@ for item in data:
 
     #使用input_for_prm生成分数
     scores1 = get_scores(input_for_prm).tolist()
-    print("scores1", scores1)
+    print("scores1：", scores1)
 
     #创建反思的input
+    print("="*30 + "添加反思" + "="*30)
     input_for_sc = answer + "\n\n" + "Wait, did I make a mistake somewhere? Let me check again?" + "\n\n"
+    print("input_for_sc\n", input_for_sc)
     outputs_for_sc = model.generate(**inputs, max_length=max_length)
     answer_for_sc = tokenizer.decode(outputs_for_sc[0], skip_special_tokens=True)
-
+    print("=" * 30 + "生成反思结果" + "=" * 30)
     result_dict2 = get_result_dict(answer_for_sc)
     input_for_prm2 = get_input_for_prm(result_dict2)
     scores2 = get_scores(input_for_prm2).tolist()
-    print("scores2", scores2)
+    print("scores2：", scores2)
 
 
 
