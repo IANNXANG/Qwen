@@ -45,7 +45,6 @@ def GenAndScore(prompt):
 def get_input_for_prm(result_dict):
     input_for_prm = ""
     for i, key in enumerate(result_dict):
-        print(f"{key}: {result_dict[key]}")
         if i == 0:
             input_for_prm = input_for_prm + result_dict[key]
         else:
@@ -60,7 +59,7 @@ def get_result_dict(answer):
     for index, part in enumerate(parts):
         key = f"step{index}" if index > 0 else "question"
         result_dict[key] = part
-    pprint.pprint(result_dict)
+    pprint.pprint(result_dict)  #打印功能
     return result_dict
 
 # train.jsonl相关处理
