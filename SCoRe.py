@@ -8,10 +8,10 @@ import pprint
 
 
 #prm返回分数 保存为一个list
-def get_scores(input_for_prm):
+def get_scores(input_for_prm:str)->list:
     return calculate_step_scores(input_for_prm, prm_model, prm_tokenizer, device1, candidate_tokens, step_tag_id)
 
-def GenAndScore(prompt):
+def GenAndScore(prompt:str):
     # 设置生成的参数
     num_samples = 1  # 希望生成的不同回答的数量
     temperature = 0.7  # 设置温度，影响随机性
@@ -42,7 +42,7 @@ def GenAndScore(prompt):
 
     return sequences, scores
 
-def get_input_for_prm(result_dict):
+def get_input_for_prm(result_dict:dict)->str:
     input_for_prm = ""
     for i, key in enumerate(result_dict):
         if i == 0:
@@ -53,13 +53,14 @@ def get_input_for_prm(result_dict):
     #input_for_prm = input_for_prm.replace("<|im_end|>", "")
     return input_for_prm
 
-def get_result_dict(answer):
+def get_result_dict(answer:str)->dict:
     parts = answer.split("\n\n")
     result_dict = {}
     for index, part in enumerate(parts):
         key = f"step{index}" if index > 0 else "question"
         result_dict[key] = part
-    pprint.pprint(result_dict)  #打印功能
+    print(json.dumps(result_dict, indent=4))
+    #pprint.pprint(result_dict)  #打印功能
     return result_dict
 
 # train.jsonl相关处理
