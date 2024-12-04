@@ -84,8 +84,8 @@ for item in data:
     print(f"问题：{item['problem']}\n答案：{item['answer']}")
     inputs = tokenizer(item['problem'] + "\n\n", return_tensors="pt").to(device2)
     outputs = model.generate(**inputs, max_length=2048)
-    # print(outputs[0])
-    # print(outputs)
+    print("outputs[0]：\n",outputs[0])
+    print("outputs：\n",outputs)
     answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
     parts = answer.split("\n\n")
     result_dict = {}
