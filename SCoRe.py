@@ -3,6 +3,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import argparse
 from PRM_ms import calculate_step_scores
+import numpy as np
 
 
 
@@ -139,6 +140,11 @@ for item in data:
     print("scores1：", scores1)
     print("scores2：", scores2)
     print("scores2_only：", scores2_only)
+    print("=" * 30 + "分数1和分数2_only的平均值" + "=" * 30)
+    value1 = np.mean(scores1)
+    value2_only = np.mean(scores2_only)
+    print("value1：", value1)
+    print("value2：", value2_only)
 
 
 
