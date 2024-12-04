@@ -84,8 +84,8 @@ for item in data:
     print(f"问题：{item['problem']}\n答案：{item['answer']}")
     inputs = tokenizer(item['problem'] + "\n\n", return_tensors="pt").to(device2)
     outputs = model.generate(**inputs, max_length=2048)
-    print("outputs[0]：\n",outputs[0])
-    print("outputs：\n",outputs)
+    # print("outputs[0]：\n",outputs[0])
+    # print("outputs：\n",outputs)
     answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
     parts = answer.split("\n\n")
     result_dict = {}
@@ -93,6 +93,20 @@ for item in data:
         key = f"step{index}" if index > 0 else "question"
         result_dict[key] = part
     pprint.pprint(result_dict)
+
+    #创建input_for_prm第一次
+    input_for_prm = ""
+    for i, key in enumerate(result_dict):
+        print(f"{key}: {result_dict[key]}")
+        if i == 0:
+            input_for_prm = input_for_prm + result_dict[key]
+        else:
+            input_for_prm = input_for_prm + result_dict[key] + 'ки'
+    input_for_prm = input_for_prm.replace("<|im_end|>", "")
+
+    #使用input_for_prm生成分数
+    scores1 = get_scores(input_for_prm)
+    print(scores1)
 
 
 
