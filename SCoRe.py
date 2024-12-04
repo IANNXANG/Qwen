@@ -5,7 +5,8 @@ import torch.optim as optim
 import argparse
 from PRM_ms import calculate_step_scores
 import numpy as np
-
+from trl import PPOTrainer, PPOConfig, AutoModelForSeq2SeqLMWithValueHead
+from trl.core import LengthSampler
 
 
 #prm返回分数 保存为一个list
@@ -100,9 +101,17 @@ model.to(device2)
 model.train() # 启用训练模式
 
 max_length = 1024
-lr = 1e-5
 
-optimizer = optim.AdamW(model.parameters(), lr=lr)
+ppo_config = PPOConfig(
+    # 这里model_name可以用一个自定义的标识或者直接使用本地模型路径作为标识
+    model_name="Qwen/Qwen2.5-Math-1.5B-Instruct",
+    learning_rate=1e-5,
+    batch_size=1,
+    ppo_epochs=4,
+    max_grad_norm=0.5
+)
+# 创建PPO训练器
+ppo_trainer = PPOTrainer(ppo_config, model)
 
 # 打印读取到的 JSON 数据
 for item in data[:10]:
@@ -153,10 +162,7 @@ for item in data[:10]:
     print("=" * 30 + "计算损失" + "=" * 30)
     reward = value1 + value2_only
 
-    loss = -torch.tensor(reward, dtype=torch.float32, requires_grad=True).to(device2)
-    loss.backward()  # 反向传播计算梯度
-    optimizer.step()  # 使用优化器更新模型参数
-    optimizer.zero_grad()  # 清空梯度，避免梯度累积
+    ppo_trainer.step([outputs_for_sc], [reward])
 
 #保存模型和分词器
 model.save_pretrained("/pubshare/zy/model/trained_self_correcting_model")
