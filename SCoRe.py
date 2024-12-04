@@ -3,7 +3,6 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
 import argparse
 from PRM_ms import calculate_step_scores
-import pprint
 
 
 
@@ -134,10 +133,12 @@ for item in data:
     result_dict2 = get_result_dict(answer_for_sc)
     input_for_prm2 = get_input_for_prm(result_dict2)
     scores2 = get_scores(input_for_prm2).tolist()
-    print("=" * 30 + "分数1和分数2" + "=" * 30)
+    scores2_only = scores2[len(scores1)+1:]
+    print("=" * 30 + "分数1、分数2和分数2_only" + "=" * 30)
     print(f"反思提示是第 {len(scores1)+1} 步")
     print("scores1：", scores1)
     print("scores2：", scores2)
+    print("scores2_only：", scores2_only)
 
 
 
