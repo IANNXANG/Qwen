@@ -157,3 +157,7 @@ for item in data[:10]:
     loss.backward()  # 反向传播计算梯度
     optimizer.step()  # 使用优化器更新模型参数
     optimizer.zero_grad()  # 清空梯度，避免梯度累积
+
+#保存模型和分词器
+model.save_pretrained("/pubshare/zy/model/trained_self_correcting_model")
+tokenizer.save_pretrained("/pubshare/zy/model/trained_self_correcting_model")
