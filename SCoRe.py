@@ -142,7 +142,9 @@ for item in data[:10]:
     print("reflect_text：", reflect_text)
     input_for_sc_text = answer + "\n\n" + reflect_text + "\n\n"
     input_for_sc = tokenizer(input_for_sc_text, return_tensors="pt").to(device2)
+    q = input_for_sc
     outputs_for_sc = model.generate(**input_for_sc, max_new_tokens=max_length)
+    a = outputs_for_sc[:q.shape[1]:]  #裁剪
     answer_for_sc = tokenizer.decode(outputs_for_sc[0], skip_special_tokens=True)
     print("=" * 30 + "生成反思结果" + "=" * 30)
     result_dict2 = get_result_dict(answer_for_sc)
@@ -161,8 +163,10 @@ for item in data[:10]:
     print("value2：", value2_only)
     print("=" * 30 + "计算损失" + "=" * 30)
     reward = value1 + value2_only
+    r = [reward]
 
-    ppo_trainer.step([outputs_for_sc], [reward])
+
+    ppo_trainer.step(q,a,r)
 
 #保存模型和分词器
 model.save_pretrained("/pubshare/zy/model/trained_self_correcting_model")
