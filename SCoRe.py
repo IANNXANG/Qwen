@@ -102,7 +102,7 @@ model.train() # 启用训练模式
 
 max_length = 1024
 
-config = PPOConfig(learning_rate=1e-5,batch_size=1)
+config = PPOConfig(learning_rate=1e-5,batch_size=1,output_dir="/pubshare/zy/model/ppo_trainer")
 # 创建PPO训练器
 ppo_trainer = PPOTrainer(config,model=model,tokenizer=tokenizer)
 
