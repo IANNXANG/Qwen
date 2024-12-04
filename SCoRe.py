@@ -87,24 +87,31 @@ candidate_tokens = prm_tokenizer.encode(f"{good_token} {bad_token}")[1:]
 step_tag_id = prm_tokenizer.encode(f"{step_tag}")[-1]
 #step_tag_id2 = 1107
 
-prm_model = AutoModelForCausalLM.from_pretrained(model_path).eval()
+prm_model = AutoModelForCausalLM.from_pretrained(model_path)
 prm_model.to(device1)
 
 
 #Actor模型放置在GPU1上
 # 加载模型和分词器
+model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-Math-1.5B-Instruct")
 tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-Math-1.5B-Instruct")
-model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-Math-1.5B-Instruct").eval()
+
 # 设置模型运行环境
+#创建ref模型
+model_ref = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-Math-1.5B-Instruct")
+tokenizer_ref = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-Math-1.5B-Instruct")
+
+
 device2 = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 model.to(device2)
+model_ref.to(device2)
 model.train() # 启用训练模式
 
 max_length = 1024
 
 config = PPOConfig(learning_rate=1e-5,batch_size=1,output_dir="/pubshare/zy/model/ppo_trainer")
 # 创建PPO训练器
-ppo_trainer = PPOTrainer(config,model=model,tokenizer=tokenizer)
+ppo_trainer = PPOTrainer(config,model,model_ref,prm_model,tokenizer)
 
 # 打印读取到的 JSON 数据
 for item in data[:10]:
