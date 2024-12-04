@@ -118,12 +118,12 @@ for item in data:
 
     #使用input_for_prm生成分数
     scores1 = get_scores(input_for_prm).tolist()
+    print("=" * 30 + "分数1" + "=" * 30)
     print("scores1：", scores1)
 
     #创建反思的input
     print("="*30 + "添加反思" + "="*30)
     input_for_sc_text = answer + "\n\n" + "Wait, did I make a mistake somewhere? Let me check again?" + "\n\n"
-    print("input_for_sc_text：", input_for_sc_text)
     input_for_sc = tokenizer(input_for_sc_text, return_tensors="pt").to(device2)
     outputs_for_sc = model.generate(**input_for_sc, max_new_tokens=max_length)
     answer_for_sc = tokenizer.decode(outputs_for_sc[0], skip_special_tokens=True)
@@ -131,6 +131,8 @@ for item in data:
     result_dict2 = get_result_dict(answer_for_sc)
     input_for_prm2 = get_input_for_prm(result_dict2)
     scores2 = get_scores(input_for_prm2).tolist()
+    print("=" * 30 + "分数1和分数2" + "=" * 30)
+    print("scores1：", scores1)
     print("scores2：", scores2)
 
 
