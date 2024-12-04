@@ -101,8 +101,6 @@ model.train() # 启用训练模式
 
 max_length = 1024
 lr = 1e-5
-def loss_function(value1, value2_only):
-    return -(value1 + value2_only)
 
 optimizer = optim.AdamW(model.parameters(), lr=lr)
 
@@ -153,17 +151,9 @@ for item in data[:10]:
     print("value1：", value1)
     print("value2：", value2_only)
     print("=" * 30 + "计算损失" + "=" * 30)
-    # 计算损失
-    loss = torch.tensor(loss_function(value1, value2_only))
-    print("loss：", loss)
-    # 反向传播
-    loss.backward()
-    print("=" * 30 + "更新参数" + "=" * 30)
-    # 更新参数
-    optimizer.step()
-    optimizer.zero_grad()
+    reward = value1 + value2_only
 
-
-# Save the trained model
-model.save_pretrained("/pubshare/zy/model//trained_self_correcting_model")
-tokenizer.save_pretrained("/pubshare/zy/model//trained_self_correcting_model")
+    loss = -torch.tensor(reward, dtype=torch.float32, requires_grad=True).to(device2)
+    loss.backward()  # 反向传播计算梯度
+    optimizer.step()  # 使用优化器更新模型参数
+    optimizer.zero_grad()  # 清空梯度，避免梯度累积
