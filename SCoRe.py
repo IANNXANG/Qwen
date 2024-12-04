@@ -152,11 +152,13 @@ for item in data[:10]:
     value2_only = np.mean(scores2_only)
     print("value1：", value1)
     print("value2：", value2_only)
-
+    print("=" * 30 + "计算损失" + "=" * 30)
+    print("loss：", loss)
     # 计算损失
     loss = loss_function(value1, value2_only)
     # 反向传播
     loss.backward()
+    print("=" * 30 + "更新参数" + "=" * 30)
     # 更新参数
     optimizer.step()
     optimizer.zero_grad()
