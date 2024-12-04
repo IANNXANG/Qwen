@@ -102,8 +102,9 @@ model.train() # 启用训练模式
 
 max_length = 1024
 
+config = PPOConfig(learning_rate=1e-5,batch_size=1)
 # 创建PPO训练器
-ppo_trainer = PPOTrainer(learning_rate=1e-5,batch_size=1,max_grad_norm=0.5,model=model,tokenizer=tokenizer)
+ppo_trainer = PPOTrainer(config,model=model,tokenizer=tokenizer)
 
 # 打印读取到的 JSON 数据
 for item in data[:10]:
