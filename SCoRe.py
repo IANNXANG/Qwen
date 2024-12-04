@@ -132,6 +132,7 @@ for item in data:
     input_for_prm2 = get_input_for_prm(result_dict2)
     scores2 = get_scores(input_for_prm2).tolist()
     print("=" * 30 + "分数1和分数2" + "=" * 30)
+    print(f"反思提示是第{len(scores1)+1}步")
     print("scores1：", scores1)
     print("scores2：", scores2)
 
