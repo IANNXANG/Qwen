@@ -109,6 +109,8 @@ for item in data:
     # print("outputs：\n",outputs)
     answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
+
+    #答案保存为字典
     result_dict = result_dict(answer)
 
     #创建input_for_prm第一次
