@@ -105,7 +105,7 @@ for item in data:
     input_for_prm = input_for_prm.replace("<|im_end|>", "")
 
     #使用input_for_prm生成分数
-    scores1 = get_scores(input_for_prm)
+    scores1 = get_scores(input_for_prm).tolist()
     print(scores1)
 
 
