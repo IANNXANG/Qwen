@@ -1,6 +1,7 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
+import torch.optim as optim
 import argparse
 from PRM_ms import calculate_step_scores
 import numpy as np
@@ -96,11 +97,17 @@ model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-Math-1.5B-Instruct").
 # 设置模型运行环境
 device2 = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 model.to(device2)
-max_length = 1024
+model.train() # 启用训练模式
 
+max_length = 1024
+lr = 1e-5
+def loss_function(value1, value2_only):
+    return -(value1 + value2_only)
+
+optimizer = optim.AdamW(model.parameters(), lr=lr)
 
 # 打印读取到的 JSON 数据
-for item in data:
+for item in data[:10]:
     print("------------------------------------------------------------------------------------")
     print(f"问题：{item['problem']}\n答案：{item['answer']}")
     inputs = tokenizer(item['problem'] + "\n\n", return_tensors="pt").to(device2)
@@ -146,5 +153,15 @@ for item in data:
     print("value1：", value1)
     print("value2：", value2_only)
 
+    # 计算损失
+    loss = loss_function(value1, value2_only)
+    # 反向传播
+    loss.backward()
+    # 更新参数
+    optimizer.step()
+    optimizer.zero_grad()
 
 
+# Save the trained model
+model.save_pretrained("/pubshare/zy/model//trained_self_correcting_model")
+tokenizer.save_pretrained("/pubshare/zy/model//trained_self_correcting_model")
