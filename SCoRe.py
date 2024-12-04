@@ -155,7 +155,7 @@ for item in data[:10]:
     print("=" * 30 + "计算损失" + "=" * 30)
     print("loss：", loss)
     # 计算损失
-    loss = loss_function(value1, value2_only)
+    loss = torch.tensor(loss_function(value1, value2_only))
     # 反向传播
     loss.backward()
     print("=" * 30 + "更新参数" + "=" * 30)
