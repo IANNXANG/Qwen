@@ -103,7 +103,7 @@ for item in data:
     print("------------------------------------------------------------------------------------")
     print(f"问题：{item['problem']}\n答案：{item['answer']}")
     inputs = tokenizer(item['problem'] + "\n\n", return_tensors="pt").to(device2)
-    outputs = model.generate(**inputs, max_length=max_length)
+    outputs = model.generate(**inputs, max_new_tokens=max_length)
     # print("outputs[0]：\n",outputs[0])
     # print("outputs：\n",outputs)
     answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
@@ -125,7 +125,7 @@ for item in data:
     input_for_sc_text = answer + "\n\n" + "Wait, did I make a mistake somewhere? Let me check again?" + "\n\n"
     print("input_for_sc_text：", input_for_sc_text)
     input_for_sc = tokenizer(input_for_sc_text, return_tensors="pt").to(device2)
-    outputs_for_sc = model.generate(**input_for_sc, max_length=max_length)
+    outputs_for_sc = model.generate(**input_for_sc, max_new_tokens=max_length)
     answer_for_sc = tokenizer.decode(outputs_for_sc[0], skip_special_tokens=True)
     print("=" * 30 + "生成反思结果" + "=" * 30)
     result_dict2 = get_result_dict(answer_for_sc)
