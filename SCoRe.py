@@ -125,7 +125,7 @@ for item in data:
     print("="*30 + "添加反思" + "="*30)
     input_for_sc = answer + "\n\n" + "Wait, did I make a mistake somewhere? Let me check again?" + "\n\n"
     print("input_for_sc\n", input_for_sc)
-    outputs_for_sc = model.generate(**inputs, max_length=max_length)
+    outputs_for_sc = model.generate(**input_for_sc, max_length=max_length)
     answer_for_sc = tokenizer.decode(outputs_for_sc[0], skip_special_tokens=True)
     print("=" * 30 + "生成反思结果" + "=" * 30)
     result_dict2 = get_result_dict(answer_for_sc)
