@@ -124,7 +124,9 @@ for item in data:
 
     #创建反思的input
     print("="*30 + "添加反思" + "="*30)
-    input_for_sc_text = answer + "\n\n" + "Wait, did I make a mistake somewhere? Let me check again?" + "\n\n"
+    reflect_text = "Wait, did I make a mistake somewhere? Let me check again?"
+    print("reflect_text：", reflect_text)
+    input_for_sc_text = answer + "\n\n" + reflect_text + "\n\n"
     input_for_sc = tokenizer(input_for_sc_text, return_tensors="pt").to(device2)
     outputs_for_sc = model.generate(**input_for_sc, max_new_tokens=max_length)
     answer_for_sc = tokenizer.decode(outputs_for_sc[0], skip_special_tokens=True)
