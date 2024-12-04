@@ -42,6 +42,26 @@ def GenAndScore(prompt):
 
     return sequences, scores
 
+def input_for_prm(result_dict):
+    input_for_prm = ""
+    for i, key in enumerate(result_dict):
+        print(f"{key}: {result_dict[key]}")
+        if i == 0:
+            input_for_prm = input_for_prm + result_dict[key]
+        else:
+            input_for_prm = input_for_prm + result_dict[key] + 'ки'
+    #skip_special_tokens=False时使用这一行代码
+    #input_for_prm = input_for_prm.replace("<|im_end|>", "")
+    return input_for_prm
+
+def result_dict(answer):
+    parts = answer.split("\n\n")
+    result_dict = {}
+    for index, part in enumerate(parts):
+        key = f"step{index}" if index > 0 else "question"
+        result_dict[key] = part
+    pprint.pprint(result_dict)
+    return result_dict
 
 # train.jsonl相关处理
 # 读取 JSONL 文件
@@ -76,6 +96,7 @@ model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-Math-1.5B-Instruct").
 # 设置模型运行环境
 device2 = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 model.to(device2)
+max_length = 1024
 
 
 # 打印读取到的 JSON 数据
@@ -83,30 +104,25 @@ for item in data:
     print("------------------------------------------------------------------------------------")
     print(f"问题：{item['problem']}\n答案：{item['answer']}")
     inputs = tokenizer(item['problem'] + "\n\n", return_tensors="pt").to(device2)
-    outputs = model.generate(**inputs, max_length=2048)
+    outputs = model.generate(**inputs, max_length=max_length)
     # print("outputs[0]：\n",outputs[0])
     # print("outputs：\n",outputs)
-    answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
-    parts = answer.split("\n\n")
-    result_dict = {}
-    for index, part in enumerate(parts):
-        key = f"step{index}" if index > 0 else "question"
-        result_dict[key] = part
-    pprint.pprint(result_dict)
+    answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    result_dict = result_dict(answer)
 
     #创建input_for_prm第一次
-    input_for_prm = ""
-    for i, key in enumerate(result_dict):
-        print(f"{key}: {result_dict[key]}")
-        if i == 0:
-            input_for_prm = input_for_prm + result_dict[key]
-        else:
-            input_for_prm = input_for_prm + result_dict[key] + 'ки'
-    input_for_prm = input_for_prm.replace("<|im_end|>", "")
+    input_for_prm = input_for_prm(result_dict)
+
 
     #使用input_for_prm生成分数
     scores1 = get_scores(input_for_prm).tolist()
     print(scores1)
+
+    #创建反思的input
+    input_for_sc = answer + "\n\n" + "Wait, did I make a mistake somewhere? Let me check again?" + "\n\n"
+    outputs_for_sc = model.generate(**inputs, max_length=max_length)
+    answer_for_sc = tokenizer.decode(outputs_for_sc[0], skip_special_tokens=True)
 
 
 
