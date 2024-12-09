@@ -5,8 +5,6 @@ import torch.optim as optim
 import argparse
 from PRM_ms import calculate_step_scores
 import numpy as np
-from trl import PPOTrainer, PPOConfig, AutoModelForSeq2SeqLMWithValueHead
-from trl.core import LengthSampler
 
 
 #prm返回分数 保存为一个list
@@ -109,9 +107,7 @@ model.train() # 启用训练模式
 
 max_length = 1024
 
-config = PPOConfig(learning_rate=1e-5,batch_size=1,output_dir="/pubshare/zy/model/ppo_trainer")
-# 创建PPO训练器
-ppo_trainer = PPOTrainer(config,model,model_ref,prm_model,tokenizer)
+
 
 # 打印读取到的 JSON 数据
 for item in data[:10]:
@@ -166,7 +162,6 @@ for item in data[:10]:
     r = [reward]
 
 
-    ppo_trainer.step(q,a,r)
 
 #保存模型和分词器
 model.save_pretrained("/pubshare/zy/model/trained_self_correcting_model")
