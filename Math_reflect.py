@@ -35,13 +35,13 @@ for item in data:
         # print(outputs[0])
         # print(outputs)
         answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
+    print("="*30,"答案", "="*30)
     print(answer)
 
-    parts = answer.split("\n\n")
+
     result_dict = {}
-    for index, part in enumerate(parts):
-        key = f"step{index}" if index > 0 else "question"
-        result_dict[key] = part
+    result_dict["problem"] = item["problem"]
+    result_dict["answer"] = item["answer"]
     with open('/home/jovyan/notebook/result.jsonl', 'a') as file:
         json.dump(result_dict, file)
         file.write('\n')
