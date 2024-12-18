@@ -47,4 +47,4 @@ for item in data:
         json.dump(result_dict, file)
         file.write('\n')
     print("------------------------------------------------------------------------------------")
-    pprint.pprint(result_dict)
+
