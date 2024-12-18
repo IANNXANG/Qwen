@@ -37,6 +37,7 @@ for item in data:
         answer = tokenizer.decode(outputs[0], skip_special_tokens=False)
     print("="*30,"答案", "="*30)
     print(answer)
+    print("="*30,"答案", "="*30)
 
 
     result_dict = {}
