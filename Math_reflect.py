@@ -42,7 +42,7 @@ for item in data:
 
     result_dict = {}
     result_dict["problem"] = item["problem"]
-    result_dict["answer"] = item["answer"]
+    result_dict["answer"] = answer
     with open('/home/jovyan/notebook/result.jsonl', 'a') as file:
         json.dump(result_dict, file)
         file.write('\n')
