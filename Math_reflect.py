@@ -42,7 +42,7 @@ for item in data:
     for index, part in enumerate(parts):
         key = f"step{index}" if index > 0 else "question"
         result_dict[key] = part
-    with open('/home/jovyan/notebook/zhouyang/result.jsonl', 'a') as file:
+    with open('/home/jovyan/notebook/result.jsonl', 'a') as file:
         json.dump(result_dict, file)
         file.write('\n')
     print("------------------------------------------------------------------------------------")
